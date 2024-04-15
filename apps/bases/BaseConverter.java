@@ -11,9 +11,9 @@ public class BaseConverter
 		new Utility[]
 		{
 			new Utility(BaseConverter::run_decimalToBase, "Convert a base-10 integer to a given base"),
-			new Utility(BaseConverter::run_fractionToBase, "Convert a base-10 fraction to a given base"),
-			new Utility(BaseConverter::run_stringToFraction, "Convert a place value numeral to a fraction"),
-			new Utility(BaseConverter::run_placeValueToBase, "Convert a place value numeral to a given base")
+			new Utility(BaseConverter::run_fractionToBase, "Convert a fraction to a place value numeral given base"),
+			new Utility(BaseConverter::run_stringToFraction, "Convert a place value numeral in a given base to a fraction"),
+			new Utility(BaseConverter::run_placeValueToBase, "Convert a base-10 place value numeral to a given base")
 		}
 	);
 
@@ -35,11 +35,12 @@ public class BaseConverter
 		while(true)
 		{
 			Menu.clearConsole();
-			base = JordysPrompts.promptInt("\nPlease enter a base");
-			number = JordysPrompts.promptInt("Please enter a number");
+			System.out.println("\nI will convert a whole number from base-10 to a given base.");
+			number = JordysPrompts.promptInt("\nPlease enter the number you'd like to convert");
+			base = JordysPrompts.promptInt("Please enter the desired base");
 
 			System.out.println(decimalToBase(number, base));
-			if(!JordysPrompts.promptYesOrNo("Would you like to try again for another base and number?"))
+			if(!JordysPrompts.promptYesOrNo("Would you like to try again for another and number and base?"))
 				break;
 		}
 	}
@@ -52,8 +53,9 @@ public class BaseConverter
 		while(true)
 		{
 			Menu.clearConsole();
-			base = JordysPrompts.promptInt("\nPlease enter a base");
-			fraction = Fraction.promptFraction("Please enter a fraction");
+			System.out.println("\nI will convert a fraction to its respective place value representation in a given base.");
+			fraction = Fraction.promptFraction("\nPlease enter the fraction you'd like to convert");
+			base = JordysPrompts.promptInt("Please enter the desired base");
 
 			System.out.println("\n" + fractionToBase(fraction, base) + "\n");
 			if(!JordysPrompts.promptYesOrNo("Would you like to try again for another base and fraction?"))
@@ -69,8 +71,9 @@ public class BaseConverter
 		while(true)
 		{
 			Menu.clearConsole();
-			base = JordysPrompts.promptInt("\nPlease enter a base");
-			str = JordysPrompts.promptString("Please enter the place value notation of the desired number");
+			System.out.println("\nI will convert the place value representation of a number in a given base to its reduced fractional representation in base-10.");
+			base = JordysPrompts.promptInt("\nPlease enter the base you'd like to convert from");
+			str = JordysPrompts.promptString("Please enter the place value notation of the number in the given base");
 			
 			while(true)
 			{
@@ -98,8 +101,9 @@ public class BaseConverter
 		while(true)
 		{
 			Menu.clearConsole();
-			base = JordysPrompts.promptInt("\nPlease enter a base");
-			str = JordysPrompts.promptString("\nPlease enter the place value notation of the desired number");
+			System.out.println("\nI will convert a number from its place value representation in base-10 to its place value representation in another base.");
+			str = JordysPrompts.promptString("\nPlease enter the place value notation of the number you'd like to convert");
+			base = JordysPrompts.promptInt("Please enter the base you'd like to convert to");
 
 			while(true)
 			{
