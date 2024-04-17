@@ -67,6 +67,7 @@ public class Menu
 			}
 			else
 			{
+				clearConsole();
 				active = false;
 			}
 		}
