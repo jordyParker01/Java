@@ -5,8 +5,9 @@
     "\\apps\\bases",
     "\\apps\\PNG",
     "\\sortingAlgorithms",
-    "\\utils"
+    "\\utils",
+    "\\utils\\menu"
   ],
-  "SelectedNode": "\\apps\\bases\\BaseConverter.java",
+  "SelectedNode": "\\NumberNamer.class",
   "PreviewInSolutionExplorer": false
 }

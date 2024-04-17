@@ -1,77 +1,73 @@
 package utils.menu;
 
 import java.util.Scanner;
-import java.util.function.Consumer;
-import utils.menu.Utility;
-import utils.JordysPrompts;
-import utils.NumberNamerUtil;
-
-public class Menu
+public abstract class Menu
 {
-	private Utility[] utilities;
 	private String greeting;
 	private String procede;
 	private String exit;
 
-	private int currentUtility;
-	private boolean active = true;
-
-	//Constructors
-	public Menu(Utility[] utils)
+	/*
+		CONSTRUCTORS
+	*/
+	public Menu(String g)
 	{
-		utilities = utils;
-		greeting = "\n\nHello, this program contains " + NumberNamerUtil.nameNumber(utilities.length) + " helpful utilities.";
-		procede = "\n\nPlease select the next procedure";
-		exit = "Exit program";
-	}
-
-	public Menu(String g, Utility[] utils)
-	{
-		utilities = utils;
 		greeting = "\n\n" + g;
-		procede = "\n\nPlease select the next procedure";
+		procede = "\n\nPlease select the next procedure:";
 		exit = "Exit program";
 	}
 
-	public Menu(String g, String p, Utility[] utils)
+	public Menu(String g, String p)
 	{
-		utilities = utils;
 		greeting = "\n\n" + g;
 		procede = "\n\n" + p;
 		exit = "Exit program";
 	}
 
-	public Menu(String g, String p, String e, Utility[] utils)
+	public Menu(String g, String p, String e)
 	{
-		
-		utilities = utils;
 		greeting = "\n\n" + g;
 		procede = "\n\n" + p;
 		exit = e;
 	}
 
-	//Open menu navigation
-	public void run()
-	{
-		clearConsole();
-		greet();
-		while(active)
-		{
-			currentUtility = JordysPrompts.promptInt(displayUtilities(), new String[][]{{"0", String.valueOf(utilities.length)}}, "Invalid input");
+	/*
+		ACCESSOR METHODS
+	*/
 
-			if(currentUtility != 0)
-			{
-				clearConsole();
-				utilities[currentUtility - 1].execute();
-				clearConsole();
-			}
-			else
-			{
-				clearConsole();
-				active = false;
-			}
-		}
+	public void setGreeting(String g)
+	{
+		greeting = g;
 	}
+
+	public void setProcede(String p)
+	{
+		procede = p;
+	}
+
+	public void setExit(String e)
+	{
+		exit = e;
+	}
+
+	public String getGreeting()
+	{
+		return greeting;
+	}
+
+	public String getProcede()
+	{
+		return procede;
+	}
+
+	public String getExit()
+	{
+		return exit;
+	}
+
+	/*
+		CLASS METHODS
+	*/
 
 	public static void clearConsole()
 	{
@@ -92,21 +88,18 @@ public class Menu
 		String dump = scanner.nextLine();
 	}
 
-	//Private Methods
-	private void greet()
+	/*
+		INSTANCE METHODS
+	*/
+
+	public void greet()
 	{
-		System.out.println(greeting);
+		System.out.println(getGreeting());
 	}
 
-	private String displayUtilities()
-	{
-		String result = procede;
+	/*
+		ABSTRACT METHODS
+	*/
 
-		for(int i = 1; i <= utilities.length; i++)
-		{
-			result += "\n" + i + ": " + utilities[i - 1].getDescription();
-		}
-		result += "\n0: " + exit + "\n\n";
-		return result;
-	}
+	abstract String display();
 }

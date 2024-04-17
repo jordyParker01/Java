@@ -15,8 +15,9 @@ public class Setting
 			options = descriptions;
 		else
 			throw new IllegalArgumentException("Number of options must be greater than one");
-		currentOption = op;
 		name = n;
+		currentOption = op;
+		options = descriptions;
 	}
 
 	//ACCESSOR METHODS

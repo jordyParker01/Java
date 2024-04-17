@@ -7,7 +7,7 @@ public class PrimeNumberGenerator
 {
 	static Settings settings = new Settings();
 
-	static Menu applicationMenu = new Menu
+	static FunctionalMenu applicationMenu = new FunctionalMenu
 	(
 		new Utility[]
 		{

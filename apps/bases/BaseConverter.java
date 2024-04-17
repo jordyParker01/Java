@@ -6,7 +6,7 @@ import utils.JordysPrompts;
 import apps.bases.*;
 public class BaseConverter
 {
-	static Menu applicationMenu = new Menu
+	static FunctionalMenu applicationMenu = new FunctionalMenu
 	(
 		new Utility[]
 		{
