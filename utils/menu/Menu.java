@@ -10,25 +10,22 @@ public abstract class Menu
 	/*
 		CONSTRUCTORS
 	*/
-	public Menu(String g)
-	{
-		greeting = "\n\n" + g;
-		procede = "\n\nPlease select the next procedure:";
-		exit = "Exit program";
-	}
-
-	public Menu(String g, String p)
-	{
-		greeting = "\n\n" + g;
-		procede = "\n\n" + p;
-		exit = "Exit program";
-	}
 
 	public Menu(String g, String p, String e)
 	{
 		greeting = "\n\n" + g;
-		procede = "\n\n" + p;
+		procede = "\n\n" + p + ":";
 		exit = e;
+	}
+
+	public Menu(String g, String p)
+	{
+		this(g, p, "Exit program");
+	}
+
+	public Menu(String g)
+	{
+		this(g, "Please select the next procedure", "Exit program");
 	}
 
 	/*

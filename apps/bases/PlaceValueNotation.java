@@ -33,6 +33,27 @@ public class PlaceValueNotation extends Fraction
 		super(n);
 	}
 
+	//ACCESSOR METHODS
+	public int getBase()
+	{
+		return base;
+	}
+
+	public int[] getWholeDigits()
+	{
+		return wholeDigits;
+	}
+
+	public int[] getFractionalDigits()
+	{
+		return fractionalDigits;
+	}
+
+	public int getIndexOfRepetition()
+	{
+		return indexOfRepetition;
+	}
+
 	//CLASS METHODS
 	public static Fraction rationalize(String str, int b) throws IllegalArgumentException
 	{

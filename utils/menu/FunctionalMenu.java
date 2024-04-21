@@ -1,13 +1,15 @@
 package utils.menu;
 
-import java.util.function.Consumer;
+/*************************************************
+A FunctionalMenu, when run, executes the currently
+selected utility until the user exits the menu.
+**********************************************/
 import utils.menu.Utility;
 import utils.JordysPrompts;
 import utils.NumberNamerUtil;
-
 public class FunctionalMenu extends Menu
 {
-	private Utility[] utilities;
+	protected Utility[] utilities;
 
 	private int currentUtility;
 	private boolean active = true;
@@ -16,16 +18,9 @@ public class FunctionalMenu extends Menu
 		CONSTRUCTORS
 	*/
 
-	public FunctionalMenu(Utility[] utils)
+	public FunctionalMenu(String g, String p, String e, Utility[] utils)
 	{
-		super("");
-		utilities = utils;
-		this.setGreeting("\n\nHello, this program contains " + NumberNamerUtil.nameNumber(utilities.length) + " helpful utilities.");
-	}
-
-	public FunctionalMenu(String g, Utility[] utils)
-	{
-		super(g);
+		super(g, p, e);
 		utilities = utils;
 	}
 
@@ -35,9 +30,15 @@ public class FunctionalMenu extends Menu
 		utilities = utils;
 	}
 
-	public FunctionalMenu(String g, String p, String e, Utility[] utils)
+	public FunctionalMenu(String g, Utility[] utils)
 	{
-		super(g, p, e);
+		super(g);
+		utilities = utils;
+	}
+
+	public FunctionalMenu(Utility[] utils)
+	{
+		super("\n\nHello, this program contains " + NumberNamerUtil.nameNumber(utils.length) + " helpful utilities.");
 		utilities = utils;
 	}
 
@@ -67,10 +68,6 @@ public class FunctionalMenu extends Menu
 			}
 		}
 	}
-
-	/*
-		PRIVATE METHODS
-	*/
 
 	@Override
 	String display()

@@ -1,5 +1,9 @@
 package utils.menu;
 
+/*******************************************************************************
+A SelectionMenu, when run, does not execute any procedure.
+Rather, it simply returns the index of the selected option to the client method.
+*******************************************************************************/
 import utils.JordysPrompts;
 public class SelectionMenu extends Menu
 {
@@ -8,15 +12,10 @@ public class SelectionMenu extends Menu
 	/*
 		CONSTRUCTORS
 	*/
-	public SelectionMenu(String[] ops)
-	{
-		super("Selection Menu", "Please select the desired option", "Go back");
-		options = ops;
-	}
 
-	public SelectionMenu(String g, String[] ops)
+	public SelectionMenu(String g, String p, String e, String[] ops)
 	{
-		super(g, "Please select the desired option", "Go back");
+		super(g, p, e);
 		options = ops;
 	}
 
@@ -26,9 +25,15 @@ public class SelectionMenu extends Menu
 		options = ops;
 	}
 
-	public SelectionMenu(String g, String p, String e, String[] ops)
+	public SelectionMenu(String g, String[] ops)
 	{
-		super(g, p, e);
+		super(g, "Please select the desired option", "Go back");
+		options = ops;
+	}
+
+	public SelectionMenu(String[] ops)
+	{
+		super("Selection Menu", "Please select the desired option", "Go back");
 		options = ops;
 	}
 	

@@ -11,7 +11,7 @@ public class BaseConverter
 		new Utility[]
 		{
 			new Utility(BaseConverter::run_decimalToBase, "Convert a base-10 integer to a given base"),
-			new Utility(BaseConverter::run_fractionToBase, "Convert a fraction to a place value numeral given base"),
+			new Utility(BaseConverter::run_fractionToBase, "Convert a fraction to a place value numeral in a given base"),
 			new Utility(BaseConverter::run_stringToFraction, "Convert a place value numeral in a given base to a fraction"),
 			new Utility(BaseConverter::run_placeValueToBase, "Convert a base-10 place value numeral to a given base")
 		}
