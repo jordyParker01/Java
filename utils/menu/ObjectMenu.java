@@ -13,18 +13,46 @@ public class ObjectMenu<T> extends FunctionalMenu
 		CONSTRUCTORS
 	*/
 
-	/*
-		17.04.2024 temporary start. Will come back to this later.
-	*/
 	public ObjectMenu(String g, String p, String e, T[] objs, Consumer<T> method)
 	{
 		super(g, p, e, new Utility[objs.length]);
-		//if(!objs.getClass().getComponentType().isAssignableFrom(method.getClass())) throw new IllegalArgumentException("Invalid method reference. The class of the given instances and the class of the method reference must be equal.");
+		setInstances(objs, method);
+	}
+
+	public ObjectMenu(String g, String p, T[] objs, Consumer<T> method)
+	{
+		super(g, p, new Utility[objs.length]);
+		setInstances(objs, method);
+	}
+
+	public ObjectMenu(String g, T[] objs, Consumer<T> method)
+	{
+		super(g, new Utility[objs.length]);
+		setInstances(objs, method);
+	}
+
+	public ObjectMenu(T[] objs, Consumer<T> method)
+	{
+		super(new Utility[objs.length]);
+		setInstances(objs, method);
+	}
+
+	/*
+		ACCESSOR METHODS
+	*/
+
+	public void setInstances(T[] objs, Consumer<T> method)
+	{
 		instances = objs;
 		for(int i = 0; i < instances.length; i++)
 		{
 			int temp = i;
 			utilities[i] = new Utility(() -> method.accept(instances[temp]), objs[i].toString());
 		}
+	}
+
+	public T[] getInstances()
+	{
+		return instances;
 	}
 }
