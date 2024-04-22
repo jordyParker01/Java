@@ -6,8 +6,9 @@
     "\\apps\\PNG",
     "\\sortingAlgorithms",
     "\\utils",
-    "\\utils\\menu"
+    "\\utils\\menu",
+    "\\utils\\settings"
   ],
-  "SelectedNode": "\\NumberNamer.class",
+  "SelectedNode": "\\RemoveNumber.java",
   "PreviewInSolutionExplorer": false
 }

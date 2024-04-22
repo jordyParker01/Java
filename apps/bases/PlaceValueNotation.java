@@ -2,6 +2,7 @@ package apps.bases;
 
 import java.util.ArrayList;
 import apps.bases.*;
+import utils.alg32.*;
 public class PlaceValueNotation extends Fraction
 {
 	private int base;

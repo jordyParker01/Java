@@ -1,7 +1,7 @@
-package apps.bases;
+package utils.alg32;
 
 import java.util.Scanner;
-import apps.bases.IntegerOverflowException;
+import utils.alg32.IntegerOverflowException;
 public class Fraction
 {
 	private int numerator;

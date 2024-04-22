@@ -2,6 +2,7 @@ package apps.bases;
 
 import java.util.*;
 import utils.menu.*;
+import utils.alg32.*;
 import utils.JordysPrompts;
 import apps.bases.*;
 public class BaseConverter

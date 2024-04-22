@@ -9,7 +9,7 @@ public class DemoHorses
 	static ArrayList<RaceHorse> raceHorses = new ArrayList<>();
 	static ArrayList<RaceHorse> playerHorses = new ArrayList<>();
 
-	static Menu applicationMenu = new Menu
+	static FunctionalMenu applicationMenu = new FunctionalMenu
 	(
 		new Utility[]
 		{
@@ -55,43 +55,40 @@ public class DemoHorses
 	
 	private static void displayAllRaceHorses()
 	{
-		ArrayList<Utility> displayList = new ArrayList<>();
-		
-		for(RaceHorse horse : raceHorses)
-		{
-			displayList.add(new Utility(horse::display, horse.getName()));
-		}
-		
-		Utility[] displays = displayList.toArray(new Utility[displayList.size()]);
-		Menu displayMenu = new Menu("Below are listed all racehorses that have been created", "Select a horse to view its stats or enter zero to go back", "Go back", displays);
+		ObjectMenu<Horse> displayMenu = new ObjectMenu<>(
+			"Below are listed all racehorses that have been created",
+			"Select a horse to view its stats or enter zero to go back", 
+			"Go back",
+			raceHorses.toArray(new RaceHorse[raceHorses.size()]),
+			horse -> horse.display()
+		);
+
 		displayMenu.run();
 	}
 	
 	private static void displayAllPlayerHorses()
 	{
-		ArrayList<Utility> displayList = new ArrayList<>();
-		
-		for(RaceHorse horse : raceHorses)
-		{
-			displayList.add(new Utility(horse::display, horse.getName()));
-		}
-		
-		Utility[] displays = displayList.toArray(new Utility[displayList.size()]);
-		Menu displayMenu = new Menu("Below are listed all racehorses that have been created", "Select a horse to view its stats or enter zero to go back", "Go back", displays);
+		ObjectMenu<Horse> displayMenu = new ObjectMenu<>(
+			"Below are listed all racehorses that have been created",
+			"Select a horse to view its stats or enter zero to go back", 
+			"Go back",
+			playerHorses.toArray(new RaceHorse[playerHorses.size()]),
+			horse -> horse.display()
+		);
+
 		displayMenu.run();
 	}
 
 	private static void raceHorse()
 	{
-		ArrayList<Utility> displayList = new ArrayList<>();
+		ObjectMenu<RaceHorse> displayMenu = new ObjectMenu<>(
+			"Below are listed all racehorses that have been created",
+			"Select a horse to race or enter zero to go back", 
+			"Go back",
+			raceHorses.toArray(new RaceHorse[raceHorses.size()]),
+			horse -> horse.race()
+		);
 
-		for(RaceHorse horse : raceHorses)
-		{
-			displayList.add(new Utility(horse::race, horse.getName()));
-		}
-
-		Utility[] displays = displayList.toArray(new Utility[displayList.size()]);
-		Menu displayMenu = new Menu("Below are listed all racehorses that have been created", "Select a horse to race or enter zero to go back", "Go back", displays);
 		displayMenu.run();
 	}
 }

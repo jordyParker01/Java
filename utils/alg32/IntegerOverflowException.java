@@ -1,4 +1,4 @@
-package apps.bases;
+package utils.alg32;
 
 public class IntegerOverflowException extends RuntimeException
 {

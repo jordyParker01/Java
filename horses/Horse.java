@@ -79,4 +79,10 @@ public class Horse
 		System.out.println();
 		Menu.pause();
 	}
+
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }
