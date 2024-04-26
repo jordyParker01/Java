@@ -4,11 +4,13 @@
     "\\apps",
     "\\apps\\bases",
     "\\apps\\PNG",
+    "\\horses",
     "\\sortingAlgorithms",
     "\\utils",
+    "\\utils\\alg32",
     "\\utils\\menu",
     "\\utils\\settings"
   ],
-  "SelectedNode": "\\RemoveNumber.java",
+  "SelectedNode": "\\utils\\settings\\Setting.java",
   "PreviewInSolutionExplorer": false
 }

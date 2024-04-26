@@ -1,7 +1,7 @@
 package utils.alg32;
 
 import java.util.Scanner;
-import utils.alg32.IntegerOverflowException;
+import utils.alg32.*;
 public class Fraction
 {
 	private int numerator;
@@ -9,7 +9,9 @@ public class Fraction
 
 	public static final Fraction INFINITESSIMAL = new Fraction(1, Integer.MAX_VALUE);
 
-	//CONSTRUCTORS
+	/*
+		CONSTRUCTORS
+	*/
 
 	public Fraction()
 	{
@@ -23,7 +25,7 @@ public class Fraction
 		denominator = 1;
 	}
 
-	public Fraction(int n, int d) throws NumberFormatException
+	public Fraction(int n, int d) throws NumberFormatException, IntegerOverflowException
 	{
 		if(d != 0)
 		{
@@ -36,7 +38,9 @@ public class Fraction
 	}
 
 
-	//ACCESS METHODS
+	/*
+		ACCESSOR METHODS
+	*/
 
 	public int getNumerator()
 	{
@@ -67,7 +71,9 @@ public class Fraction
 	}
 
 
-	//CLASS METHODS
+	/*
+		CLASS METHODS
+	*/
 
 	public static Fraction promptFraction(String prompt)
 	{
@@ -133,27 +139,10 @@ public class Fraction
 
 		int multA = (lcm / a.denominator);
 		int multB = (lcm / b.denominator);
+		int numA = IntegerOverflowManager.multiply(a.numerator, multA);
+		int numB = IntegerOverflowManager.multiply(b.numerator, multB);
 
-		if
-		(
-			(a.numerator > 0 && a.numerator > Integer.MAX_VALUE / multA) ||
-			(a.numerator < 0 && a.numerator < Integer.MIN_VALUE / multA) ||
-			(b.numerator > 0 && b.numerator > Integer.MAX_VALUE / multB) ||
-			(b.numerator < 0 && b.numerator < Integer.MIN_VALUE / multB)
-		)
-			throw new IntegerOverflowException("Numerator too large to be stored in 32-bit signed integer.");
-
-		int numA = a.numerator * multA;
-		int numB = b.numerator * multB;
-
-		result = new Fraction(numA + numB, lcm);
-		/*
-		catch(IntegerOverflowException e)
-		{
-			System.out.println(e);
-			result = a;
-		}
-		*/
+		result = new Fraction(IntegerOverflowManager.add(numA, numB), lcm);
 
 		return result;
 	}
@@ -176,20 +165,20 @@ public class Fraction
 
 	vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 	*/
-	public static Fraction multiply(Fraction a, Fraction b)
+	public static Fraction multiply(Fraction a, Fraction b) throws IntegerOverflowException
 	{
 		int n;
 		int d;
 		Fraction result;
 
-		n = a.numerator * b.numerator;
-		d = a.denominator * b.denominator;
+		n = IntegerOverflowManager.multiply(a.numerator, b.numerator);
+		d = IntegerOverflowManager.multiply(a.denominator, b.denominator);
 
 		result = new Fraction(n, d);
 		return result;
 	}
 
-	public static Fraction multiplyMany(Fraction... fractions)
+	public static Fraction multiplyMany(Fraction... fractions) throws IntegerOverflowException
 	{
 		Fraction result = new Fraction(1);
 
@@ -202,7 +191,9 @@ public class Fraction
 	}
 
 
-	//INSTANCE METHODS
+	/*
+		INSTANCE METHODS
+	*/
 
 	public float toFloat()
 	{
@@ -219,7 +210,7 @@ public class Fraction
 		return this.numerator / this.denominator;
 	}
 
-	public Fraction reciprocal()
+	public Fraction reciprocal() throws IntegerOverflowException
 	{
 		int n = this.denominator;
 		int d = this.numerator;
@@ -228,9 +219,9 @@ public class Fraction
 		return result;
 	}
 
-	public Fraction negative()
+	public Fraction negative() throws IntegerOverflowException
 	{
-		int n = this.numerator * -1;
+		int n = IntegerOverflowManager.negate(this.numerator);
 		int d = this.denominator;
 
 		Fraction result = new Fraction(n, d);
@@ -261,64 +252,64 @@ public class Fraction
 		return result;
 	}
 
-	public void increaseBy(Fraction fraction)
+	public void increaseBy(Fraction fraction) throws IntegerOverflowException
 	{
 		int lcm = findLCM(this.denominator, fraction.denominator);
 
 		int numA = lcm / this.denominator;
 		int numB = lcm / fraction.denominator;
 
-		this.numerator = numA + numB;
+		this.numerator = IntegerOverflowManager.add(numA, numB);
 		this.denominator = lcm;
 		this.reduce();
 	}
 
-	public void increaseBy(int i)
+	public void increaseBy(int i) throws IntegerOverflowException
 	{
-		this.numerator += i * this.denominator;
+		this.numerator = IntegerOverflowManager.add(this.numerator, IntegerOverflowManager.multiply(i, this.denominator));
 		this.reduce();
 	}
 
-	public void decreaseBy(Fraction fraction)
+	public void decreaseBy(Fraction fraction) throws IntegerOverflowException
 	{
 		int lcm = findLCM(this.denominator, fraction.denominator);
 
 		int numA = lcm / this.denominator;
 		int numB = lcm / fraction.denominator;
 
-		this.numerator = numA - numB;
+		this.numerator = IntegerOverflowManager.add(numA, -numB);
 		this.denominator = lcm;
 		this.reduce();
 	}
 
-	public void decreaseBy(int i)
+	public void decreaseBy(int i) throws IntegerOverflowException
 	{
-		this.numerator -= i * this.denominator;
+		this.numerator = IntegerOverflowManager.add(this.numerator, IntegerOverflowManager.multiply(-i, this.denominator));
 	}
 
-	public void multiplyBy(Fraction fraction) throws NumberFormatException
+	public void multiplyBy(Fraction fraction) throws NumberFormatException, IntegerOverflowException
 	{
-		this.numerator *= fraction.getNumerator();
-		this.setDenominator(this.denominator * fraction.getDenominator());
+		this.numerator = IntegerOverflowManager.multiply(this.numerator, fraction.getNumerator());
+		this.setDenominator(IntegerOverflowManager.multiply(this.denominator, fraction.getDenominator()));
 		this.reduce();
 	}
 
-	public void multiplyBy(int i)
+	public void multiplyBy(int i) throws IntegerOverflowException
 	{
-		this.numerator *= i;
+		this.numerator = IntegerOverflowManager.multiply(this.numerator, i);
 		this.reduce();
 	}
 	
-	public void divideBy(Fraction fraction) throws NumberFormatException
+	public void divideBy(Fraction fraction) throws NumberFormatException, IntegerOverflowException
 	{
-		this.numerator *= fraction.getDenominator();
-		this.setDenominator(this.denominator * fraction.getNumerator());
+		this.numerator = IntegerOverflowManager.multiply(this.numerator, fraction.getDenominator());
+		this.setDenominator(IntegerOverflowManager.multiply(this.denominator, fraction.getNumerator()));
 		this.reduce();
 	}
 
-	public void divideBy(int i) throws NumberFormatException
+	public void divideBy(int i) throws NumberFormatException, IntegerOverflowException
 	{
-		this.setDenominator(this.denominator * i);
+		this.setDenominator(IntegerOverflowManager.multiply(this.denominator, i));
 		this.reduce();
 	}
 
@@ -332,20 +323,20 @@ public class Fraction
 		return add(new Fraction(i), this.negative());
 	}
 
-	//PRIVATE METHODS
+	/*
+		PRIVATE METHODS
+	*/
 
-	private void reduce()
+	private void reduce() throws IntegerOverflowException
 	{
 		int gcd = findGCD(this.numerator, this.denominator);
 		this.numerator /= gcd;
 		this.denominator /= gcd;
 
-		if(this.denominator == Integer.MIN_VALUE)
-			throw new IntegerOverflowException("Denominator too large to be stored in 32-bit signed integer.");
-		else if(this.denominator < 0)
+		if(this.denominator < 0)
 		{
-			this.numerator *= -1;
-			this.denominator *= -1;
+			this.numerator = IntegerOverflowManager.negate(this.numerator);
+			this.denominator = IntegerOverflowManager.negate(this.denominator);
 		}
 	}
 
@@ -387,7 +378,7 @@ public class Fraction
 		return result;
 	}
 
-	private static int findLCM(int a, int b) throws IntegerOverflowException
+	private static int findLCM(int a, int b) throws IllegalArgumentException, IntegerOverflowException
 	{
 		if(a <= 0 || b <= 0)
 			throw new IllegalArgumentException("Only positive integer values are expected for the given algorithm.");
@@ -396,11 +387,7 @@ public class Fraction
 		int gcd = findGCD(a, b);
 
 		a /= gcd;
-
-		if(a > Integer.MAX_VALUE / b)
-			throw new IntegerOverflowException("Denominator too large to be stored in 32-bit signed integer.");
-		else
-			result = (a * b);
+		result = IntegerOverflowManager.multiply(a, b);
 		return result;
 	}
 }
