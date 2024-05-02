@@ -4,10 +4,12 @@ import java.util.Scanner;
 import utils.alg32.*;
 public class Fraction
 {
+	//Static Fields
+	public static final Fraction INFINITESSIMAL = new Fraction(1, Integer.MAX_VALUE);
+
+	//Instance Fields
 	private int numerator;
 	private int denominator;
-
-	public static final Fraction INFINITESSIMAL = new Fraction(1, Integer.MAX_VALUE);
 
 	/*
 		CONSTRUCTORS
@@ -135,16 +137,14 @@ public class Fraction
 	{
 		Fraction result;
 
-		int lcm = findLCM(a.denominator, b.denominator);
+		int lcm = NumberTheory.LCM(a.denominator, b.denominator);
 
 		int multA = (lcm / a.denominator);
 		int multB = (lcm / b.denominator);
 		int numA = IntegerOverflowManager.multiply(a.numerator, multA);
 		int numB = IntegerOverflowManager.multiply(b.numerator, multB);
 
-		result = new Fraction(IntegerOverflowManager.add(numA, numB), lcm);
-
-		return result;
+		return new Fraction(IntegerOverflowManager.add(numA, numB), lcm);
 	}
 
 	public static Fraction addMany(Fraction... fractions) throws IntegerOverflowException
@@ -159,14 +159,20 @@ public class Fraction
 		return result;
 	}
 
-	/*
-	PREVENTABLE INTEGER OVERFLOW: by taking responsiblity for reducing the denominator first before
-	passing values to the constructor, integer overflow could possibly be prevented...I think.
-
-	vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-	*/
 	public static Fraction multiply(Fraction a, Fraction b) throws IntegerOverflowException
 	{
+		/*
+		Factor operands before evaluating the product so that the resultant fraction product is already
+		reduced prior to being passed to the constructor. This eliminates the potential for integer overflow
+		that might otherwise occur when evaluating the unreduced product first.
+		*/
+		int temp = a.denominator;
+		a.denominator = b.denominator;
+		b.denominator = temp;
+		a.reduce();
+		b.reduce();
+		
+		//Procede with conventional fraction multiplication
 		int n;
 		int d;
 		Fraction result;
@@ -174,8 +180,7 @@ public class Fraction
 		n = IntegerOverflowManager.multiply(a.numerator, b.numerator);
 		d = IntegerOverflowManager.multiply(a.denominator, b.denominator);
 
-		result = new Fraction(n, d);
-		return result;
+		return new Fraction(n, d);
 	}
 
 	public static Fraction multiplyMany(Fraction... fractions) throws IntegerOverflowException
@@ -254,7 +259,7 @@ public class Fraction
 
 	public void increaseBy(Fraction fraction) throws IntegerOverflowException
 	{
-		int lcm = findLCM(this.denominator, fraction.denominator);
+		int lcm = NumberTheory.LCM(this.denominator, fraction.denominator);
 
 		int numA = lcm / this.denominator;
 		int numB = lcm / fraction.denominator;
@@ -272,7 +277,7 @@ public class Fraction
 
 	public void decreaseBy(Fraction fraction) throws IntegerOverflowException
 	{
-		int lcm = findLCM(this.denominator, fraction.denominator);
+		int lcm = NumberTheory.LCM(this.denominator, fraction.denominator);
 
 		int numA = lcm / this.denominator;
 		int numB = lcm / fraction.denominator;
@@ -313,14 +318,19 @@ public class Fraction
 		this.reduce();
 	}
 
-	public Fraction compareTo(Fraction fraction)
+	public Fraction compareTo(Fraction fraction) throws IntegerOverflowException
 	{
 		return add(fraction, this.negative());
 	}
 
-	public Fraction compareTo(int i)
+	public Fraction compareTo(int i) throws IntegerOverflowException
 	{
 		return add(new Fraction(i), this.negative());
+	}
+
+	public boolean isImproper()
+	{
+		return this.numerator < this.denominator ? false : true;
 	}
 
 	/*
@@ -329,7 +339,7 @@ public class Fraction
 
 	private void reduce() throws IntegerOverflowException
 	{
-		int gcd = findGCD(this.numerator, this.denominator);
+		int gcd = NumberTheory.GCD(this.numerator, this.denominator);
 		this.numerator /= gcd;
 		this.denominator /= gcd;
 
@@ -338,56 +348,5 @@ public class Fraction
 			this.numerator = IntegerOverflowManager.negate(this.numerator);
 			this.denominator = IntegerOverflowManager.negate(this.denominator);
 		}
-	}
-
-	//Euclid's Algorithm for finding the greatest common divisor of two integers
-	private static int findGCD(int a, int b)
-	{
-		int greater;
-		int lesser;
-		int remainder = 1;
-		int result = 1;
-
-		if(a > b)
-		{
-			greater = a;
-			lesser = b;
-		}
-		else
-		{
-			greater = b;
-			lesser = a;
-		}
-
-		if(lesser == 0)
-			result = greater;
-		else
-			while(remainder != 0)
-			{
-				remainder = greater % lesser;
-
-				if(remainder == 0)
-					result = lesser;
-				else
-				{
-					greater = lesser;
-					lesser = remainder;
-				}
-			}
-
-		return result;
-	}
-
-	private static int findLCM(int a, int b) throws IllegalArgumentException, IntegerOverflowException
-	{
-		if(a <= 0 || b <= 0)
-			throw new IllegalArgumentException("Only positive integer values are expected for the given algorithm.");
-		
-		int result;
-		int gcd = findGCD(a, b);
-
-		a /= gcd;
-		result = IntegerOverflowManager.multiply(a, b);
-		return result;
 	}
 }

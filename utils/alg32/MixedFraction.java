@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class MixedFraction
 {
-	private wholePart;
+	private int wholePart;
 	private Fraction fractionalPart;
 
 	/*
@@ -36,13 +36,13 @@ public class MixedFraction
 		wholeNumber = n / d;
 	}
 
-	public MixedFraction(int w, int n, int d)
+	public MixedFraction(int w, int n, int d) throws IntegerOverflowException
 	{
 		fractionalPart = new Fraction(d % n, d);
 		wholeNumber = IntegerOverflowManager.add(w, n / d);
 	}
 
-	public MixedFraction(int w, Fraction f)
+	public MixedFraction(int w, Fraction f) throws IntegerOverflowException
 	{
 		super(f.getDenominator() % f.getNumerator(), f.getDenominator());
 		wholeNumber = IntegerOverflowManager.add(w, f.getNumerator() / f.getDenominator());
