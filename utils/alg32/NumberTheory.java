@@ -63,7 +63,7 @@ public class NumberTheory
 		with the goal of eliminating avoidable
 		integer overflow.
 
-		This approach was poorly implemented. Will improve upon later.
+		This approach was poorly implemented. May improve upon later.
 	*/
 
 	public static int modIncrement(int n, int m)
@@ -78,26 +78,11 @@ public class NumberTheory
 
 	public static int modAdd(int a, int b, int m)
 	{
-		int result = a % m;
-		if(b >= 0)
-			for(int i = 1; i <= b; i++)
-				result = modIncrement(result, m);
-		else
-			for(int i = -1; i >= b; i--)
-				result = modDecrement(result, m);
-		return result;
+		return ((a % m) + (b % m)) % m;
 	}
 
 	public static int modMultiply(int a, int b, int m)
 	{
-		int result = 0;
-
-		if(a > 0 && b > 0 || a < 0 && b < 0)
-			for(int i = 1; i <= Math.abs(b); i++)
-				result = modAdd(result, a, m);
-		else if(a != 0 && b != 0)
-			for(int i = 1; i <= Math.abs(b); i++)
-				result = modAdd(result, -a, m);
-		return result;
+		return ((a % m) * (b % m)) % m;
 	}
 }

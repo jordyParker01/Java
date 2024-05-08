@@ -2,10 +2,38 @@ package apps.PNG;
 
 import utils.JordysPrompts;
 import utils.menu.*;
+import utils.settings.*;
 import java.util.*;
 public class PrimeNumberGenerator
 {
-	static Settings settings = new Settings();
+	static Setting[] settings = new Setting[]
+	{
+		new Setting("Method for Displaying Prime Factorization", 1,
+			new String[]
+			{
+				"Displays as Numbered List",
+				"Displays in Exponential Form"
+			}
+		),
+
+		new Setting("Method for Displaying Complete Factorization", 1,
+			new String[]
+			{
+				"Displays as Numbered List",
+				"Displays in Factor Pairs"
+			}
+		),
+
+		new Setting("Method for Factoring Numbers Found Not to Be Prime", 1,
+			new String[]
+			{
+				"Displays Prime Factorization",
+				"Displays Complete Factorization"
+			}
+		)
+	};
+
+	static ApplicationSettings appSettings = new ApplicationSettings(settings, "apps\\PNG\\settings.txt");
 
 	static FunctionalMenu applicationMenu = new FunctionalMenu
 	(
@@ -16,14 +44,14 @@ public class PrimeNumberGenerator
 			new Utility(PrimeNumberGenerator::run_primeFactors, "Generate the prime factorization of a given number"),
 			new Utility(PrimeNumberGenerator::run_factors, "Generate all the factors of a given number"),
 			new Utility(PrimeNumberGenerator::run_isPrime, "Check if a given number is prime"),
-			new Utility(PrimeNumberGenerator::run_changeSettings, "Change setttings")
+			new Utility(appSettings::viewSettings, "Change Settings")
 		}
 	);
 
 	//Application
 	public static void main(String[] args)
 	{
-		settings.loadSettings("apps\\PNG\\settings.txt");
+		appSettings.load();
 		applicationMenu.run();
 	}
 	
@@ -75,7 +103,7 @@ public class PrimeNumberGenerator
 			new String[][]{{"1", "n"}},
 			"Please enter a value greater than 0 for n.");
 
-			if(settings.primeFactorizationSettings == -1)
+			if(settings[0].getCurrentOption() == 0)
 			{
 				ArrayList<Integer> factors = primeFactorsList(n);
 				displayList(factors);
@@ -99,7 +127,7 @@ public class PrimeNumberGenerator
 			new String[][]{{"1", "n"}},
 			"Please enter a value greater than 0 for n.");
 
-			if(settings.listAllFactorsSettings == -1)
+			if(settings[1].getCurrentOption() == 0)
 			{
 				ArrayList<Integer> factors = factorsList(n);
 				displayList(factors);
@@ -131,11 +159,11 @@ public class PrimeNumberGenerator
 			{
 				System.out.println(n + " is not prime, it is composite.");
 
-				if(settings.compositeNumbersSettings == -1)
+				if(settings[2].getCurrentOption() == 0)
 				{
 					if(JordysPrompts.promptYesOrNo("Would you like to see the prime factorization of " + n + "?"))
 					{
-						if(settings.primeFactorizationSettings == -1)
+						if(settings[0].getCurrentOption() == 0)
 							displayList(primeFactorsList(n));
 						else
 							displayPrimeFactors(primeFactorsHash(n));
@@ -145,7 +173,7 @@ public class PrimeNumberGenerator
 				{
 					if(JordysPrompts.promptYesOrNo("Would you like to see the complete list of factors for " + n + "?"))
 					{
-						if(settings.listAllFactorsSettings == -1)
+						if(settings[1].getCurrentOption() == 0)
 							displayList(factorsList(n));
 						else
 							displayFactors(factorsHash(n));
@@ -155,76 +183,6 @@ public class PrimeNumberGenerator
 			if(!JordysPrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
 				break;
 		}
-	}
-
-	private static void run_changeSettings()
-	{
-		Menu.clearConsole();
-		int settingToChange;
-		int updates = 0;
-		boolean active = true;
-		while(active)
-		{
-			settingToChange = JordysPrompts.promptInt(
-			displaySettings(updates),
-			new String[][]{{"0", "3"}},
-			"Invalid input"
-			);
-
-			updates++;
-
-			active = changeSettings(settingToChange);
-			settings.saveSettings("apps\\PNG\\settings.txt");
-		}
-	}
-
-	private static boolean changeSettings(int i)
-	{
-		boolean active = true;
-
-		switch(i)
-		{
-			case 1:
-				settings.primeFactorizationSettings *= -1;
-				break;
-			case 2:
-				settings.listAllFactorsSettings *= -1;
-				break;
-			case 3:
-				settings.compositeNumbersSettings *= -1;
-				break;
-			case 0:
-				active = false;
-		}
-
-		return active;
-	}
-
-	private static String displaySettings(int updates)
-	{
-		String result = "\nBelow are listed your ";
-
-		if(updates == 0)
-			result += "current ";
-		else
-			result += "updated ";
-
-		result += "settings.\nSelect ";
-		if(updates > 0)
-			result += "another "; 
-		result += "one to change or save and quit if you are satisfied with the ";
-		
-		if(updates == 0)
-			result += "current ";
-		else
-			result += "new ";
-
-		result += "settings.\n\n";
-		result += "1: PRIME FACTORIZATION >> " + settings.primeFactorizationDescription() + "\n";
-		result += "2: LIST OF ALL FACTORS >> " + settings.listAllFactorsDescription() + "\n";
-		result += "3: COMPOSITE NUMBERS   >> " + settings.compositeNumbersDescription() + "\n\n";
-		result += "0: Save and Quit\n\n";
-		return result;
 	}
 	
 	/******************************************************************************************************************************************************

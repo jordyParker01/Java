@@ -11,8 +11,8 @@ public class FunctionalMenu extends Menu
 {
 	protected Utility[] utilities;
 
-	private int currentUtility;
-	private boolean active = true;
+	protected int currentUtility;
+	private boolean active;
 
 	/*
 		CONSTRUCTORS
@@ -51,6 +51,7 @@ public class FunctionalMenu extends Menu
 	{
 		clearConsole();
 		greet();
+		active = true;
 		while(active)
 		{
 			currentUtility = JordysPrompts.promptInt(display(), new String[][]{{"0", String.valueOf(utilities.length)}}, "Invalid input");

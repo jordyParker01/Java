@@ -26,6 +26,16 @@ public class Utility
 		return description;
 	}
 
+	public void setProcedure(Procedure p)
+	{
+		procedure = p;
+	}
+
+	public void setDescription(String d)
+	{
+		description = d;
+	}
+
 	//Execute Methods
 	public void execute()
 	{

@@ -1,8 +1,8 @@
 package utils.menu;
 
-/*
-An ObjectMenu, when run, executes a given instance method 
-*/
+/********************************************************
+An ObjectMenu, when run, executes a given instance method
+********************************************************/
 import utils.menu.*;
 import java.util.function.Consumer;
 public class ObjectMenu<T> extends FunctionalMenu
@@ -54,5 +54,26 @@ public class ObjectMenu<T> extends FunctionalMenu
 	public T[] getInstances()
 	{
 		return instances;
+	}
+
+	/*
+		INSTANCE METHODS
+	*/
+
+	@Override
+	String display()
+	{
+		resetDescriptions();
+		return super.display();
+	}
+
+	//For if an object's name changes over the course of using the ObjectMenu.
+	public void resetDescriptions()
+	{
+		for(int i = 0; i < instances.length; i++)
+		{
+			int temp = i;
+			utilities[i].setDescription(instances[i].toString());
+		}
 	}
 }

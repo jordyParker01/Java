@@ -131,4 +131,9 @@ public class MixedFraction
 	{
 		return new MixedFraction(input);
 	}
+
+	public static add(MixedFraction a, MixedFraction b)
+	{
+		
+	}
 }

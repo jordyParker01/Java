@@ -33,7 +33,7 @@ public class SelectionMenu extends Menu
 
 	public SelectionMenu(String[] ops)
 	{
-		super("Selection Menu", "Please select the desired option", "Go back");
+		super("Selection Menu", "Please select the desired option:", "Go back");
 		options = ops;
 	}
 	

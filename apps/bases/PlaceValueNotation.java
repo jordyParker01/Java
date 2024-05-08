@@ -149,7 +149,7 @@ public class PlaceValueNotation extends Fraction
 		Fraction dividendRational = new Fraction(getNumerator());
 		divisor = getDenominator();
 
-		while(dividendRational.compareTo(base).getNumerator() < 0)
+		while(dividendRational.compareTo(base).getNumerator() <= 0)
 		{
 			dividendRational.divideBy(base);
 			magnitude++;

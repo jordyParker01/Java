@@ -14,7 +14,7 @@ public abstract class Menu
 	public Menu(String g, String p, String e)
 	{
 		greeting = "\n\n" + g;
-		procede = "\n\n" + p + ":";
+		procede = "\n\n" + p;
 		exit = e;
 	}
 
@@ -25,7 +25,7 @@ public abstract class Menu
 
 	public Menu(String g)
 	{
-		this(g, "Please select the next procedure", "Exit program");
+		this(g, "Please select the next procedure:", "Exit program");
 	}
 
 	/*
@@ -39,7 +39,7 @@ public abstract class Menu
 
 	public void setProcede(String p)
 	{
-		procede = p;
+		procede = "\n\n" + p;
 	}
 
 	public void setExit(String e)
