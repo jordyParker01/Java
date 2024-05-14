@@ -3,7 +3,7 @@ package apps.bases;
 import java.util.ArrayList;
 import apps.bases.*;
 import utils.alg32.*;
-public class PlaceValueNotation extends Fraction
+public class PlaceValueNotation extends Fraction32
 {
 	private int base;
 
@@ -56,9 +56,9 @@ public class PlaceValueNotation extends Fraction
 	}
 
 	//CLASS METHODS
-	public static Fraction rationalize(String str, int b) throws IllegalArgumentException
+	public static Fraction32 rationalize(String str, int b) throws IllegalArgumentException
 	{
-		Fraction result = new Fraction();
+		Fraction32 result = new Fraction32();
 		String[] parts = str.split("\\.");
 		char[] wholeDigits;
 		char[] fractionalDigits;
@@ -67,7 +67,7 @@ public class PlaceValueNotation extends Fraction
 		int exp = wholeDigits.length -1;
 		for(int i = 0; i < wholeDigits.length; i++)
 		{
-			result = Fraction.add(result, new Fraction(parseAlphanumeric(wholeDigits[i], b) * (int)Math.pow(b, exp)));
+			result = Fraction32.add(result, new Fraction32(parseAlphanumeric(wholeDigits[i], b) * (int)Math.pow(b, exp)));
 			exp--;
 		}
 		if(parts.length == 2)
@@ -75,7 +75,7 @@ public class PlaceValueNotation extends Fraction
 			fractionalDigits = parts[1].toCharArray();
 			for(int i = 1; i <= fractionalDigits.length; i++)
 			{
-				result = Fraction.add(result, new Fraction(parseAlphanumeric(fractionalDigits[i - 1], b), (int)Math.pow(b, i)));
+				result = Fraction32.add(result, new Fraction32(parseAlphanumeric(fractionalDigits[i - 1], b), (int)Math.pow(b, i)));
 			}
 		}
 		return result;
@@ -146,7 +146,7 @@ public class PlaceValueNotation extends Fraction
 		int repeatingIndex = -1;
 
 		//initializing variables
-		Fraction dividendRational = new Fraction(getNumerator());
+		Fraction32 dividendRational = new Fraction32(getNumerator());
 		divisor = getDenominator();
 
 		while(dividendRational.compareTo(base).getNumerator() <= 0)

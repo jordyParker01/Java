@@ -44,7 +44,7 @@ public class PrimeNumberGenerator
 			new Utility(PrimeNumberGenerator::run_primeFactors, "Generate the prime factorization of a given number"),
 			new Utility(PrimeNumberGenerator::run_factors, "Generate all the factors of a given number"),
 			new Utility(PrimeNumberGenerator::run_isPrime, "Check if a given number is prime"),
-			new Utility(appSettings::viewSettings, "Change Settings")
+			new Utility(appSettings::viewSettings, "View settings")
 		}
 	);
 
@@ -135,7 +135,7 @@ public class PrimeNumberGenerator
 			else
 			{
 				Map<Integer, Integer> factorsMap = factorsHash(n);
-				displayFactors(factorsMap);
+				displayFactorsAsPairs(factorsMap);
 			}
 			if(!JordysPrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
 				break;
@@ -159,24 +159,30 @@ public class PrimeNumberGenerator
 			{
 				System.out.println(n + " is not prime, it is composite.");
 
+				//METHOD FOR DISPLAYING NUMBERS FOUND NOT TO BE PRIME >> Displays prime factorization
 				if(settings[2].getCurrentOption() == 0)
 				{
 					if(JordysPrompts.promptYesOrNo("Would you like to see the prime factorization of " + n + "?"))
 					{
+						//METHOD FOR DISPLAYING PRIME FACTORIZATION >> Displays as numbered list
 						if(settings[0].getCurrentOption() == 0)
 							displayList(primeFactorsList(n));
+						//METHOD FOR DISPLAYING PRIME FACTORIZATION >> Displays in exponential form
 						else
 							displayPrimeFactors(primeFactorsHash(n));
 					}
 				}
+				//METHOD FOR DISPLAYING NUMBERS FOUND NOT TO BE PRIME >> Displays complete factorization
 				else
 				{
 					if(JordysPrompts.promptYesOrNo("Would you like to see the complete list of factors for " + n + "?"))
 					{
+						//METHOD FOR DISPLAYING COMPLETE FACTORIZATION >> Displays as numbered list
 						if(settings[1].getCurrentOption() == 0)
 							displayList(factorsList(n));
+						//METHOD FOR DISPLAYING COMPLETE FACTORIZATION >> Displays in factor pairs
 						else
-							displayFactors(factorsHash(n));
+							displayFactorsAsPairs(factorsHash(n));
 					}
 				}
 			}
@@ -203,7 +209,7 @@ public class PrimeNumberGenerator
 		}
 	}
 
-	private static void displayFactors(Map<Integer, Integer> factorsMap)
+	private static void displayFactorsAsPairs(Map<Integer, Integer> factorsMap)
 	{
 		System.out.println();
 		for(Map.Entry<Integer, Integer> entry : factorsMap.entrySet())

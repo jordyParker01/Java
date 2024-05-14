@@ -4,18 +4,21 @@ import utils.menu.Procedure;
 //Utility is a class which contains a Procedure (functional interface) and a description of the Procedure.
 public class Utility
 {
-	//Fields
 	private Procedure procedure;
 	private String description;
 
-	//Constructor
+	/*
+		CONSTRUCTORS
+	*/
 	public Utility(Procedure p, String d)
 	{
 		procedure = p;
 		description = d;
 	}
 
-	//Accessor Methods
+	/*
+		ACCESSOR METHODS
+	*/
 	public Procedure getProcedure()
 	{
 		return procedure;
@@ -25,6 +28,10 @@ public class Utility
 	{
 		return description;
 	}
+
+	/*
+		MUTATOR METHODS
+	*/
 
 	public void setProcedure(Procedure p)
 	{
@@ -36,7 +43,9 @@ public class Utility
 		description = d;
 	}
 
-	//Execute Methods
+	/*
+		INSTANCE METHODS
+	*/
 	public void execute()
 	{
 		procedure.execute();

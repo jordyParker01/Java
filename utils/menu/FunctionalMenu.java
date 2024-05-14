@@ -38,7 +38,7 @@ public class FunctionalMenu extends Menu
 
 	public FunctionalMenu(Utility[] utils)
 	{
-		super("\n\nHello, this program contains " + NumberNamerUtil.nameNumber(utils.length) + " helpful utilities.");
+		super("Hello, this program contains " + NumberNamerUtil.nameNumber(utils.length) + " helpful utilities.");
 		utilities = utils;
 	}
 

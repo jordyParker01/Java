@@ -49,13 +49,13 @@ public class BaseConverter
 	private static void run_fractionToBase()
 	{
 		int base;
-		Fraction fraction;
+		Fraction32 fraction;
 
 		while(true)
 		{
 			Menu.clearConsole();
 			System.out.println("\nI will convert a fraction to its respective place value representation in a given base.");
-			fraction = Fraction.promptFraction("\nPlease enter the fraction you'd like to convert");
+			fraction = Fraction32.promptFraction("\nPlease enter the fraction you'd like to convert");
 			base = JordysPrompts.promptInt("Please enter the desired base");
 
 			System.out.println("\n" + fractionToBase(fraction, base) + "\n");
@@ -134,7 +134,7 @@ public class BaseConverter
 		return notation.alphanumeric();
 	}
 	 
-	public static String fractionToBase(Fraction fraction, int b)
+	public static String fractionToBase(Fraction32 fraction, int b)
 	{
 		PlaceValueNotation notation = new PlaceValueNotation(fraction.getNumerator(), fraction.getDenominator(), b);
 		return notation.alphanumeric();

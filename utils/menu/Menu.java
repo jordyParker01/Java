@@ -14,7 +14,7 @@ public abstract class Menu
 	public Menu(String g, String p, String e)
 	{
 		greeting = "\n\n" + g;
-		procede = "\n\n" + p;
+		procede = "\n\n" + p + "\n";
 		exit = e;
 	}
 
@@ -32,21 +32,6 @@ public abstract class Menu
 		ACCESSOR METHODS
 	*/
 
-	public void setGreeting(String g)
-	{
-		greeting = g;
-	}
-
-	public void setProcede(String p)
-	{
-		procede = "\n\n" + p;
-	}
-
-	public void setExit(String e)
-	{
-		exit = e;
-	}
-
 	public String getGreeting()
 	{
 		return greeting;
@@ -60,6 +45,25 @@ public abstract class Menu
 	public String getExit()
 	{
 		return exit;
+	}
+
+	/*
+		MUTATOR METHODS
+	*/
+
+	public void setGreeting(String g)
+	{
+		greeting = "\n\n" + g;
+	}
+
+	public void setProcede(String p)
+	{
+		procede = "\n\n" + p;
+	}
+
+	public void setExit(String e)
+	{
+		exit = e;
 	}
 
 	/*

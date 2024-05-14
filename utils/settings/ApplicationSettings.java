@@ -18,7 +18,7 @@ public class ApplicationSettings
 
 		menu = new ObjectMenu<>(
 			"Below are listed the settings of the current application.",
-			"Please select a setting to view all available options for it.\n",
+			"Please select a setting to view all its available options.\n",
 			"Save and Quit",
 			settings,
 			setting -> setting.changeSetting()

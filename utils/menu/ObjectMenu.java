@@ -47,7 +47,7 @@ public class ObjectMenu<T> extends FunctionalMenu
 		for(int i = 0; i < instances.length; i++)
 		{
 			int temp = i;
-			utilities[i] = new Utility(() -> method.accept(instances[temp]), objs[i].toString());
+			utilities[i] = new Utility(() -> method.accept(instances[temp]), instances[temp].toString());
 		}
 	}
 

@@ -1,7 +1,7 @@
 package utils.alg32;
 
 import utils.alg32.*;
-public class NumberTheory
+public class NumberTheory32
 {
 	/*
 		For the purposes of rational arithmetic.

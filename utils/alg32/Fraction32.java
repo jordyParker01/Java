@@ -2,10 +2,10 @@ package utils.alg32;
 
 import java.util.Scanner;
 import utils.alg32.*;
-public class Fraction
+public class Fraction32
 {
 	//Static Fields
-	public static final Fraction INFINITESSIMAL = new Fraction(1, Integer.MAX_VALUE);
+	public static final Fraction32 INFINITESSIMAL = new Fraction32(1, Integer.MAX_VALUE);
 
 	//Instance Fields
 	private int numerator;
@@ -15,19 +15,19 @@ public class Fraction
 		CONSTRUCTORS
 	*/
 
-	public Fraction()
+	public Fraction32()
 	{
 		numerator = 0;
 		denominator = 1;
 	}
 	
-	public Fraction(int n)
+	public Fraction32(int n)
 	{
 		numerator = n;
 		denominator = 1;
 	}
 
-	public Fraction(int n, int d) throws NumberFormatException, IntegerOverflowException
+	public Fraction32(int n, int d) throws NumberFormatException, IntegerOverflowException
 	{
 		if(d != 0)
 		{
@@ -54,6 +54,10 @@ public class Fraction
 		return this.denominator;
 	}
 
+	/*
+		MUTATOR METHODS
+	*/
+
 	public void setNumerator(int n)
 	{
 		this.numerator = n;
@@ -77,11 +81,11 @@ public class Fraction
 		CLASS METHODS
 	*/
 
-	public static Fraction promptFraction(String prompt)
+	public static Fraction32 promptFraction(String prompt)
 	{
 		Scanner scanner = new Scanner(System.in);
 		String input;
-		Fraction result = new Fraction();
+		Fraction32 result = new Fraction32();
 
 		System.out.print(prompt + " >> ");
 
@@ -103,12 +107,12 @@ public class Fraction
 		return result;
 	}
 
-	public static Fraction parseFraction(String input) throws NumberFormatException
+	public static Fraction32 parseFraction(String input) throws NumberFormatException
 	{
 		int n;
 		int d;
 		String[] values;
-		Fraction result;
+		Fraction32 result;
 
 		values = input.split("/");
 		if(values.length > 2)
@@ -116,42 +120,42 @@ public class Fraction
 		else if(values.length == 1)
 		{
 			n = Integer.parseInt(values[0].trim());
-			result = new Fraction(n);
+			result = new Fraction32(n);
 		}
 		else
 		{
 			n = Integer.parseInt(values[0].trim());
 			d = Integer.parseInt(values[1].trim());
-			result = new Fraction(n, d);
+			result = new Fraction32(n, d);
 		}
 
 		return result;
 	}
 
-	public static Fraction parseFraction(int input)
+	public static Fraction32 parseFraction(int input)
 	{
-		return new Fraction(input);
+		return new Fraction32(input);
 	}
 
-	public static Fraction add(Fraction a, Fraction b) throws IntegerOverflowException
+	public static Fraction32 add(Fraction32 a, Fraction32 b) throws IntegerOverflowException
 	{
-		Fraction result;
+		Fraction32 result;
 
-		int lcm = NumberTheory.LCM(a.denominator, b.denominator);
+		int lcm = NumberTheory32.LCM(a.denominator, b.denominator);
 
 		int multA = (lcm / a.denominator);
 		int multB = (lcm / b.denominator);
 		int numA = IntegerOverflowManager.multiply(a.numerator, multA);
 		int numB = IntegerOverflowManager.multiply(b.numerator, multB);
 
-		return new Fraction(IntegerOverflowManager.add(numA, numB), lcm);
+		return new Fraction32(IntegerOverflowManager.add(numA, numB), lcm);
 	}
 
-	public static Fraction addMany(Fraction... fractions) throws IntegerOverflowException
+	public static Fraction32 addMany(Fraction32... fractions) throws IntegerOverflowException
 	{
-		Fraction result = new Fraction();
+		Fraction32 result = new Fraction32();
 
-		for(Fraction fraction : fractions)
+		for(Fraction32 fraction : fractions)
 		{
 			result = add(result, fraction);
 		}
@@ -159,7 +163,7 @@ public class Fraction
 		return result;
 	}
 
-	public static Fraction multiply(Fraction a, Fraction b) throws IntegerOverflowException
+	public static Fraction32 multiply(Fraction32 a, Fraction32 b) throws IntegerOverflowException
 	{
 		/*
 		Factor operands before evaluating the product so that the resultant fraction product is already
@@ -173,21 +177,16 @@ public class Fraction
 		b.reduce();
 		
 		//Procede with conventional fraction multiplication
-		int n;
-		int d;
-		Fraction result;
-
-		n = IntegerOverflowManager.multiply(a.numerator, b.numerator);
-		d = IntegerOverflowManager.multiply(a.denominator, b.denominator);
-
-		return new Fraction(n, d);
+		int n = IntegerOverflowManager.multiply(a.numerator, b.numerator);
+		int d = IntegerOverflowManager.multiply(a.denominator, b.denominator);
+		return new Fraction32(n, d);
 	}
 
-	public static Fraction multiplyMany(Fraction... fractions) throws IntegerOverflowException
+	public static Fraction32 multiplyMany(Fraction32... fractions) throws IntegerOverflowException
 	{
-		Fraction result = new Fraction(1);
+		Fraction32 result = new Fraction32(1);
 
-		for(Fraction fraction : fractions)
+		for(Fraction32 fraction : fractions)
 		{
 			result = multiply(result, fraction);
 		}
@@ -215,21 +214,21 @@ public class Fraction
 		return this.numerator / this.denominator;
 	}
 
-	public Fraction reciprocal() throws IntegerOverflowException
+	public Fraction32 reciprocal() throws IntegerOverflowException
 	{
 		int n = this.denominator;
 		int d = this.numerator;
 
-		Fraction result = new Fraction(n, d);
+		Fraction32 result = new Fraction32(n, d);
 		return result;
 	}
 
-	public Fraction negative() throws IntegerOverflowException
+	public Fraction32 negative() throws IntegerOverflowException
 	{
 		int n = IntegerOverflowManager.negate(this.numerator);
 		int d = this.denominator;
 
-		Fraction result = new Fraction(n, d);
+		Fraction32 result = new Fraction32(n, d);
 		return result;
 	}
 
@@ -247,19 +246,19 @@ public class Fraction
 	public String mixedNumber()
 	{
 		String result;
-		Fraction remainder;
+		Fraction32 remainder;
 		int leadingValue;
 
 		leadingValue = this.numerator / this.denominator;
-		remainder = new Fraction(this.numerator % this.denominator, this.denominator);
+		remainder = new Fraction32(this.numerator % this.denominator, this.denominator);
 
 		result = leadingValue + " " + remainder.toString();
 		return result;
 	}
 
-	public void increaseBy(Fraction fraction) throws IntegerOverflowException
+	public void increaseBy(Fraction32 fraction) throws IntegerOverflowException
 	{
-		int lcm = NumberTheory.LCM(this.denominator, fraction.denominator);
+		int lcm = NumberTheory32.LCM(this.denominator, fraction.denominator);
 
 		int numA = lcm / this.denominator;
 		int numB = lcm / fraction.denominator;
@@ -275,9 +274,9 @@ public class Fraction
 		this.reduce();
 	}
 
-	public void decreaseBy(Fraction fraction) throws IntegerOverflowException
+	public void decreaseBy(Fraction32 fraction) throws IntegerOverflowException
 	{
-		int lcm = NumberTheory.LCM(this.denominator, fraction.denominator);
+		int lcm = NumberTheory32.LCM(this.denominator, fraction.denominator);
 
 		int numA = lcm / this.denominator;
 		int numB = lcm / fraction.denominator;
@@ -292,7 +291,7 @@ public class Fraction
 		this.numerator = IntegerOverflowManager.add(this.numerator, IntegerOverflowManager.multiply(-i, this.denominator));
 	}
 
-	public void multiplyBy(Fraction fraction) throws NumberFormatException, IntegerOverflowException
+	public void multiplyBy(Fraction32 fraction) throws NumberFormatException, IntegerOverflowException
 	{
 		this.numerator = IntegerOverflowManager.multiply(this.numerator, fraction.getNumerator());
 		this.setDenominator(IntegerOverflowManager.multiply(this.denominator, fraction.getDenominator()));
@@ -305,7 +304,7 @@ public class Fraction
 		this.reduce();
 	}
 	
-	public void divideBy(Fraction fraction) throws NumberFormatException, IntegerOverflowException
+	public void divideBy(Fraction32 fraction) throws NumberFormatException, IntegerOverflowException
 	{
 		this.numerator = IntegerOverflowManager.multiply(this.numerator, fraction.getDenominator());
 		this.setDenominator(IntegerOverflowManager.multiply(this.denominator, fraction.getNumerator()));
@@ -318,14 +317,14 @@ public class Fraction
 		this.reduce();
 	}
 
-	public Fraction compareTo(Fraction fraction) throws IntegerOverflowException
+	public Fraction32 compareTo(Fraction32 fraction) throws IntegerOverflowException
 	{
 		return add(fraction, this.negative());
 	}
 
-	public Fraction compareTo(int i) throws IntegerOverflowException
+	public Fraction32 compareTo(int i) throws IntegerOverflowException
 	{
-		return add(new Fraction(i), this.negative());
+		return add(new Fraction32(i), this.negative());
 	}
 
 	public boolean isImproper()
@@ -339,7 +338,7 @@ public class Fraction
 
 	private void reduce() throws IntegerOverflowException
 	{
-		int gcd = NumberTheory.GCD(this.numerator, this.denominator);
+		int gcd = NumberTheory32.GCD(this.numerator, this.denominator);
 		this.numerator /= gcd;
 		this.denominator /= gcd;
 
