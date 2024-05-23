@@ -58,7 +58,7 @@ public abstract class Menu
 
 	public void setProcede(String p)
 	{
-		procede = "\n\n" + p;
+		procede = "\n\n" + p + "\n";
 	}
 
 	public void setExit(String e)
