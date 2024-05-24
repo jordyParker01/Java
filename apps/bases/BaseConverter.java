@@ -10,7 +10,7 @@ public class BaseConverter
 {
 	static Setting[] settings = new Setting[]
 	{
-		new Setting("notation type for radices from 11 to 36", 0,
+		new Setting("notation type for binary", 0,
 			new String[]
 			{
 				"Alphanumeric",
@@ -18,7 +18,31 @@ public class BaseConverter
 			}
 		),
 
-		new Setting("notation type for radices less than 10", 0,
+		new Setting("notation type for octal", 0,
+			new String[]
+			{
+				"Alphanumeric",
+				"Pseudodecimal"
+			}
+		),
+
+		new Setting("notation type for hexadecimal", 0,
+			new String[]
+			{
+				"Alphanumeric",
+				"Pseudodecimal"
+			}
+		),
+
+		new Setting("notation type for all other radices from 11 to 36", 0,
+			new String[]
+			{
+				"Alphanumeric",
+				"Pseudodecimal"
+			}
+		),
+
+		new Setting("notation type for all other radices less than 10", 0,
 			new String[]
 			{
 				"Alphanumeric",
@@ -173,15 +197,27 @@ public class BaseConverter
 		}
 	}
 
-	private static String correctNotation(PlaceValueNotation pvn)
+	private static String preferredNotation(PlaceValueNotation pvn)
 	{
 		String result;
 		int b = pvn.getBase();
 
-		if
+		if(b == 2 && settings[0].getCurrentOption() == 0) //NOTATION TYPE FOR BINARY >> Alphanumeric
+		{
+			result = "0b" + pvn.alphanumeric();
+		}
+		else if(b == 8 && settings[1].getCurrentOption() == 0) //NOTATION TYPE FOR OCTAL >> Alphanumeric
+		{
+			result = "0o" + pvn.alphanumeric();
+		}
+		else if(b == 16 && settings[2].getCurrentOption() == 0) //NOTATION TYPE FOR HEXADECIMAL >> Alphanumeric
+		{
+			result = "0x" + pvn.alphanumeric();
+		}
+		else if
 		(
-			b > 10 && settings[0].getCurrentOption() == 0 || //NOTATION TYPE FOR RADICES FROM 11 TO 36 >> Alphanumeric
-			b < 10 && settings[1].getCurrentOption() == 0 || //NOTATION TYPE FOR RADICES LESS THAN 10 >> Alphanumeric
+			b > 10 && settings[3].getCurrentOption() == 0 || //NOTATION TYPE FOR ALL OTHER RADICES FROM 11 TO 36 >> Alphanumeric
+			b < 10 && settings[4].getCurrentOption() == 0 || //NOTATION TYPE FOR ALL OTHER RADICES LESS THAN 10 >> Alphanumeric
 			b == 10
 		)
 		{
@@ -203,13 +239,13 @@ public class BaseConverter
 	public static String decimalToBase(int n, int b)
 	{
 		PlaceValueNotation notation = new PlaceValueNotation(n, 1, b);
-		return correctNotation(notation);
+		return preferredNotation(notation);
 	}
 	 
 	public static String fractionToBase(Fraction32 fraction, int b)
 	{
 		PlaceValueNotation notation = new PlaceValueNotation(fraction.getNumerator(), fraction.getDenominator(), b);
-		return correctNotation(notation);
+		return preferredNotation(notation);
 	}
 
 	public static String stringToFraction(String str, int b) throws IllegalArgumentException
