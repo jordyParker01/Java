@@ -5,16 +5,24 @@ import java.io.*;
 import utils.menu.*;
 public class SpecialNamesSet
 {
-	static TreeMap<Integer, String> userNames = new TreeMap<>();
-	static String filePath;
+	TreeMap<Integer, String> userNames = new TreeMap<>();
+	String filePath;
+
+	/*
+		CONSTRUCTORS
+	*/
 
 	public SpecialNamesSet(String filePath)
 	{
 		this.filePath = filePath;
-		load(filePath);
+		load();
 	}
 
-	public static void save(String filePath)
+	/*
+		CLASS METHODS
+	*/
+
+	public void save()
 	{
 		try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath)))
 		{
@@ -35,7 +43,7 @@ public class SpecialNamesSet
 		}
 	}
 
-	public static void load(String filePath)
+	public void load()
 	{
 		userNames.clear();
 		try(BufferedReader reader = new BufferedReader(new FileReader(filePath)))
@@ -49,7 +57,17 @@ public class SpecialNamesSet
 		}
 		catch(Exception e)
 		{
-			load("apps\\bases\\special_names_saves\\default.txt");
+			try
+			{
+				filePath = "apps\\bases\\special_names_saves\\default.txt";
+				load();
+			}
+			catch(Exception f)
+			{
+				System.out.println(f.getMessage());
+				System.out.println("\nDefault special names save not found. Program will continue as normal without special names.");
+				Menu.pause();
+			}
 		}
 	}
 }
