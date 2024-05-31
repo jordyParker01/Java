@@ -5,21 +5,39 @@ import java.io.*;
 import utils.menu.*;
 public class SpecialNamesSet
 {
-	TreeMap<Integer, String> userNames = new TreeMap<>();
-	String filePath;
+	private TreeMap<Integer, String> names = new TreeMap<>();
+	private String filePath;
 
 	/*
 		CONSTRUCTORS
 	*/
 
-	public SpecialNamesSet(String filePath)
+	public SpecialNamesSet(String fileName)
 	{
-		this.filePath = filePath;
+		setFilePath(fileName);
 		load();
 	}
 
 	/*
-		CLASS METHODS
+		ACCESSOR METHODS
+	*/
+
+	public String getFilePath()
+	{
+		return filePath;
+	}
+
+	/*
+		MUTATOR METHODS
+	*/
+
+	public void setFilePath(String fileName)
+	{
+		filePath = "apps\\bases\\special_names_saves\\" + fileName;
+	}
+
+	/*
+		INSTANCE METHODS
 	*/
 
 	public void save()
@@ -27,11 +45,11 @@ public class SpecialNamesSet
 		try(BufferedWriter writer = new BufferedWriter(new FileWriter(filePath)))
 		{
 			int index = 1;
-			for(Map.Entry<Integer, String> entry : userNames.entrySet())
+			for(Map.Entry<Integer, String> entry : names.entrySet())
 			{
 				writer.write(entry.getKey() + ": " + entry.getValue());
 				index++;
-				if(index != userNames.size())
+				if(index != names.size())
 					writer.newLine();
 			}
 		}
@@ -45,29 +63,46 @@ public class SpecialNamesSet
 
 	public void load()
 	{
-		userNames.clear();
+		names.clear();
 		try(BufferedReader reader = new BufferedReader(new FileReader(filePath)))
 		{
 			String[] values;
 
 			while((values = reader.readLine().split(":")) != null)
 			{
-				userNames.put(Integer.parseInt(values[0].trim()), values[1].trim());
+				names.put(Integer.parseInt(values[0].trim()), values[1].trim());
 			}
 		}
 		catch(Exception e)
 		{
-			try
+			try(BufferedReader reader = new BufferedReader(new FileReader(filePath)))
 			{
-				filePath = "apps\\bases\\special_names_saves\\default.txt";
-				load();
+				String line;
+				String[] values;
+
+				while((line = reader.readLine()) != null)
+				{
+					values = line.split(":");
+					names.put(Integer.parseInt(values[0].trim()), values[1].trim());
+				}
 			}
 			catch(Exception f)
 			{
 				System.out.println(f.getMessage());
-				System.out.println("\nDefault special names save not found. Program will continue as normal without special names.");
+				System.out.println("\nDefault special names save was not found or was corrupted. Program will continue as normal without special names.");
 				Menu.pause();
 			}
 		}
+	}
+
+	public void display()
+	{
+		System.out.println("\n\n");
+		for(Map.Entry<Integer, String> entry : names.entrySet())
+		{
+			System.out.println(entry.getKey() + ": " + entry.getValue());
+		}
+		System.out.println("\n");
+		Menu.pause();
 	}
 }

@@ -52,6 +52,7 @@ public class BaseConverter
 	};
 
 	static ApplicationSettings appSettings = new ApplicationSettings(settings, "apps\\bases\\settings.txt");
+	static SpecialNamesSet namesSet = new SpecialNamesSet("default.txt");
 
 	static FunctionalMenu applicationMenu = new FunctionalMenu
 	(
@@ -62,7 +63,8 @@ public class BaseConverter
 			new Utility(BaseConverter::run_stringToFraction, "Convert a place value numeral in working radix to a fraction"),
 			new Utility(BaseConverter::run_placeValueToBase, "Convert a base-10 place value numeral to working radix"),
 			new Utility(RadixSettings::changeWorkingRadix, "Change Working Radix"),
-			new Utility(appSettings::viewSettings, "View settings")
+			new Utility(appSettings::viewSettings, "View settings"),
+			new Utility(namesSet::display, "View special names set (work in progress, shows default.txt)")
 		}
 	);
 	
