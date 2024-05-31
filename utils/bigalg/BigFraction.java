@@ -1,4 +1,4 @@
-package bigalg;
+package utils.bigalg;
 
 import java.math.BigInteger;
 import java.util.Scanner;
@@ -40,7 +40,7 @@ public class BigFraction implements Comparable<BigFraction>
 	}
 
 	public BigFraction(int n, BigInteger d)
-	{
+	{`
 		setNumerator(n);
 		setDenominator(d);
 		reduce();
@@ -135,9 +135,11 @@ public class BigFraction implements Comparable<BigFraction>
 		return result;
 	}
 
-	public static BigFraction parseFraction(String input)
+	public static BigFraction parseFraction(String input) throws NumberFormatException
 	{
-		int n, d;
+		BigInteger n = null;
+		BigInteger d = null;
+
 		String[] values = input.split("/");
 		BigFraction result;
 
@@ -145,13 +147,13 @@ public class BigFraction implements Comparable<BigFraction>
 			throw new NumberFormatException("Invalid number of elements found while parsing fraction");
 		else if(values.length == 1)
 		{
-			n = Integer.parseInt(values[0].trim());
+			n = new BigInteger(values[0].trim());
 			result = new BigFraction(n);
 		}
 		else
 		{
-			n = Integer.parseInt(values[0].trim());
-			d = Integer.parseInt(values[1].trim());
+			n = new BigInteger(values[0].trim());
+			d = new BigInteger(values[1].trim());
 			result = new BigFraction(n, d);
 		}
 
@@ -351,7 +353,7 @@ public class BigFraction implements Comparable<BigFraction>
 	public String toString()
 	{
 		String result;
-		if(denominator != BigInteger.ONE)
+		if(!denominator.equals(BigInteger.ONE))
 			result = numerator + "/" + denominator;
 		else
 			result = String.valueOf(this.numerator);

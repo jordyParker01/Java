@@ -77,8 +77,7 @@ public class BaseConverter
 		public static void changeWorkingRadix()
 		{
 			System.out.println("\n\nCurrent Working Radix: " + workingRadix + "\n");
-			if(JordysPrompts.promptYesOrNo("Change to a different working radix?"))
-				workingRadix = JordysPrompts.promptInt("Please enter new working radix");
+			workingRadix = JordysPrompts.promptInt("Please enter new working radix");
 			applicationMenu.setProcede("Current Working Radix: " + RadixSettings.workingRadix);
 		}
 
@@ -203,30 +202,20 @@ public class BaseConverter
 		int b = pvn.getBase();
 
 		if(b == 2 && settings[0].getCurrentOption() == 0) //NOTATION TYPE FOR BINARY >> Alphanumeric
-		{
 			result = "0b" + pvn.alphanumeric();
-		}
 		else if(b == 8 && settings[1].getCurrentOption() == 0) //NOTATION TYPE FOR OCTAL >> Alphanumeric
-		{
 			result = "0o" + pvn.alphanumeric();
-		}
 		else if(b == 16 && settings[2].getCurrentOption() == 0) //NOTATION TYPE FOR HEXADECIMAL >> Alphanumeric
-		{
 			result = "0x" + pvn.alphanumeric();
-		}
 		else if
 		(
 			b > 10 && settings[3].getCurrentOption() == 0 || //NOTATION TYPE FOR ALL OTHER RADICES FROM 11 TO 36 >> Alphanumeric
 			b < 10 && settings[4].getCurrentOption() == 0 || //NOTATION TYPE FOR ALL OTHER RADICES LESS THAN 10 >> Alphanumeric
 			b == 10
 		)
-		{
 			result = pvn.alphanumeric();
-		}
 		else
-		{
 			result = pvn.pseudodecimal();
-		}
 
 		return result;
 	}
