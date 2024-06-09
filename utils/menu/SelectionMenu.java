@@ -4,7 +4,7 @@ package utils.menu;
 A SelectionMenu, when run, does not execute any procedure.
 Rather, it simply returns the index of the selected option to the client method.
 *******************************************************************************/
-import utils.JordysPrompts;
+import utils.ConsolePrompts;
 public class SelectionMenu extends Menu
 {
 	private String[] options;
@@ -45,7 +45,7 @@ public class SelectionMenu extends Menu
 	{
 		clearConsole();
 		greet();
-		int result = JordysPrompts.promptInt(display(), new String[][]{{"0", String.valueOf(options.length)}}, "Invalid input");
+		int result = ConsolePrompts.promptInt(display(), new String[][]{{"0", String.valueOf(options.length)}}, "Invalid input");
 		clearConsole();
 		return result;
 	}

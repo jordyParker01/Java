@@ -1,6 +1,6 @@
 package apps.PNG;
 
-import utils.JordysPrompts;
+import utils.ConsolePrompts;
 import utils.menu.*;
 import utils.settings.*;
 import java.util.*;
@@ -65,14 +65,14 @@ public class PrimeNumberGenerator
 		while(true)
 		{
 			Menu.clearConsole();
-			int n = JordysPrompts.promptInt("\nI will generate the first n primes. What shall n be?",
+			int n = ConsolePrompts.promptInt("\nI will generate the first n primes. What shall n be?",
 			new String[][]{{"1", "n"}},
 			"Please enter a value greater than 0 for n.");
 			ArrayList<Integer> primes = primes(n);
 			int index = 1;
 			System.out.println();
 			displayList(primes);
-			if(!JordysPrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
+			if(!ConsolePrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
 				break;
 		}
 	}
@@ -82,14 +82,14 @@ public class PrimeNumberGenerator
 		while(true)
 		{
 			Menu.clearConsole();
-			int n = JordysPrompts.promptInt("\nI will generate all the primes up to n. What shall n be?",
+			int n = ConsolePrompts.promptInt("\nI will generate all the primes up to n. What shall n be?",
 			new String[][]{{"1", "n"}},
 			"Please enter a value greater than 0 for n.");
 			ArrayList<Integer> primes = primesUpTo(n);
 			int index = 1;
 			System.out.println();
 			displayList(primes);
-			if(!JordysPrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
+			if(!ConsolePrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
 				break;
 		}
 	}
@@ -99,7 +99,7 @@ public class PrimeNumberGenerator
 		while(true)
 		{
 			Menu.clearConsole();
-			int n = JordysPrompts.promptInt("\nI will find the prime factors for n. What shall n be?",
+			int n = ConsolePrompts.promptInt("\nI will find the prime factors for n. What shall n be?",
 			new String[][]{{"1", "n"}},
 			"Please enter a value greater than 0 for n.");
 
@@ -113,7 +113,7 @@ public class PrimeNumberGenerator
 				Map<Integer, Integer> factorsMap = primeFactorsHash(n);
 				displayPrimeFactors(factorsMap);
 			}
-			if(!JordysPrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
+			if(!ConsolePrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
 				break;
 		}
 	}
@@ -123,7 +123,7 @@ public class PrimeNumberGenerator
 		while(true)
 		{
 			Menu.clearConsole();
-			int n = JordysPrompts.promptInt("\nI will find all the factors of n. What shall n be?",
+			int n = ConsolePrompts.promptInt("\nI will find all the factors of n. What shall n be?",
 			new String[][]{{"1", "n"}},
 			"Please enter a value greater than 0 for n.");
 
@@ -137,7 +137,7 @@ public class PrimeNumberGenerator
 				Map<Integer, Integer> factorsMap = factorsHash(n);
 				displayFactorsAsPairs(factorsMap);
 			}
-			if(!JordysPrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
+			if(!ConsolePrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
 				break;
 		}
 	}
@@ -147,7 +147,7 @@ public class PrimeNumberGenerator
 		while(true)
 		{
 			Menu.clearConsole();
-			int n = JordysPrompts.promptInt("\nI will check if a given number, n, is prime. What shall n be?",
+			int n = ConsolePrompts.promptInt("\nI will check if a given number, n, is prime. What shall n be?",
 			new String[][]{{"1", "n"}},
 			"Please enter a value greater than 0 for n.");
 			boolean isPrime = isPrime(n);
@@ -162,7 +162,7 @@ public class PrimeNumberGenerator
 				//METHOD FOR DISPLAYING NUMBERS FOUND NOT TO BE PRIME >> Displays prime factorization
 				if(settings[2].getCurrentOption() == 0)
 				{
-					if(JordysPrompts.promptYesOrNo("Would you like to see the prime factorization of " + n + "?"))
+					if(ConsolePrompts.promptYesOrNo("Would you like to see the prime factorization of " + n + "?"))
 					{
 						//METHOD FOR DISPLAYING PRIME FACTORIZATION >> Displays as numbered list
 						if(settings[0].getCurrentOption() == 0)
@@ -175,7 +175,7 @@ public class PrimeNumberGenerator
 				//METHOD FOR DISPLAYING NUMBERS FOUND NOT TO BE PRIME >> Displays complete factorization
 				else
 				{
-					if(JordysPrompts.promptYesOrNo("Would you like to see the complete list of factors for " + n + "?"))
+					if(ConsolePrompts.promptYesOrNo("Would you like to see the complete list of factors for " + n + "?"))
 					{
 						//METHOD FOR DISPLAYING COMPLETE FACTORIZATION >> Displays as numbered list
 						if(settings[1].getCurrentOption() == 0)
@@ -186,7 +186,7 @@ public class PrimeNumberGenerator
 					}
 				}
 			}
-			if(!JordysPrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
+			if(!ConsolePrompts.promptYesOrNo("\nDo you want to try again for a different value of n?"))
 				break;
 		}
 	}

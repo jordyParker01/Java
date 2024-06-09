@@ -1,7 +1,6 @@
 package horses;
 
 import utils.menu.Menu;
-import utils.JordysPrompts;
 public class Horse
 {
 	private String name;

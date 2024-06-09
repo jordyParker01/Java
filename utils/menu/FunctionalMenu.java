@@ -5,7 +5,7 @@ A FunctionalMenu, when run, executes the currently
 selected utility until the user exits the menu.
 **********************************************/
 import utils.menu.Utility;
-import utils.JordysPrompts;
+import utils.ConsolePrompts;
 import utils.NumberNamerUtil;
 public class FunctionalMenu extends Menu
 {
@@ -54,7 +54,7 @@ public class FunctionalMenu extends Menu
 		active = true;
 		while(active)
 		{
-			currentUtility = JordysPrompts.promptInt(display(), new String[][]{{"0", String.valueOf(utilities.length)}}, "Invalid input");
+			currentUtility = ConsolePrompts.promptInt(display(), new String[][]{{"0", String.valueOf(utilities.length)}}, "Invalid input");
 
 			if(currentUtility != 0)
 			{

@@ -1,13 +1,11 @@
 /******************************************************************************
-Programmer: Jordy Parker
-
 Contains static methods for requesting data from the console, handling exceptions
 when data is of the incorrect type, and limiting legal numeric types to a certain
 range or set of ranges.
 *******************************************************************************/
 package utils;
 import java.util.Scanner;
-public class JordysPrompts
+public class ConsolePrompts
 {
 	static Scanner scanner = new Scanner(System.in);
 

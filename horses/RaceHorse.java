@@ -1,7 +1,6 @@
 package horses;
 
 import java.util.Random;
-import utils.JordysPrompts;
 import utils.menu.Menu;
 public class RaceHorse extends Horse
 {

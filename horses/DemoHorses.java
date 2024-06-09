@@ -1,7 +1,7 @@
 package horses;
 
 import java.util.ArrayList;
-import utils.JordysPrompts;
+import utils.ConsolePrompts;
 import utils.menu.*;
 import horses.*;
 public class DemoHorses
@@ -39,16 +39,16 @@ public class DemoHorses
 	{
 		while(true)
 		{
-			String name = JordysPrompts.promptString("\nPlease enter the horse's name");
-			String color = JordysPrompts.promptString("\nPlease enter the horse's color");
-			int year = JordysPrompts.promptInt("\nPlease enter the Horse's year of birth");
-			int racesRun = JordysPrompts.promptInt("\nPlease enter the number of races run by this horse");
+			String name = ConsolePrompts.promptString("\nPlease enter the horse's name");
+			String color = ConsolePrompts.promptString("\nPlease enter the horse's color");
+			int year = ConsolePrompts.promptInt("\nPlease enter the Horse's year of birth");
+			int racesRun = ConsolePrompts.promptInt("\nPlease enter the number of races run by this horse");
 			
 			RaceHorse raceHorse = new RaceHorse(name, color, year, racesRun);
 			raceHorses.add(raceHorse);
 			playerHorses.add(raceHorse);
 			System.out.println("\n" + name + ", a " + color + " racehorse run in " + racesRun + " races and born in " + year + " has been added.");
-			if(!JordysPrompts.promptYesOrNo("Would you like to create another racehorse?"))
+			if(!ConsolePrompts.promptYesOrNo("Would you like to create another racehorse?"))
 				break;
 		}
 	}

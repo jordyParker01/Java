@@ -3,6 +3,7 @@ package apps.bases;
 import java.util.*;
 import java.io.*;
 import utils.menu.*;
+import utils.JordysPrompts;
 public class SpecialNamesSet
 {
 	private TreeMap<Integer, String> names = new TreeMap<>();
@@ -104,5 +105,15 @@ public class SpecialNamesSet
 		}
 		System.out.println("\n");
 		Menu.pause();
+	}
+
+	/*
+		STATIC METHODS
+	*/
+
+	public static void createNewSave()
+	{
+		String fileName = JordysPrompts.promptString("\nPlease enter the name of the new save");
+		SpecialNamesSet newSave = new SpecialNamesSet(fileName);
 	}
 }

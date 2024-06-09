@@ -4,7 +4,7 @@ import java.util.*;
 import utils.menu.*;
 import utils.alg32.*;
 import utils.settings.*;
-import utils.JordysPrompts;
+import utils.ConsolePrompts;
 import apps.bases.*;
 public class BaseConverter
 {
@@ -79,7 +79,7 @@ public class BaseConverter
 		public static void changeWorkingRadix()
 		{
 			System.out.println("\n\nCurrent Working Radix: " + workingRadix + "\n");
-			workingRadix = JordysPrompts.promptInt("Please enter new working radix");
+			workingRadix = ConsolePrompts.promptInt("Please enter new working radix");
 			applicationMenu.setProcede("Current Working Radix: " + RadixSettings.workingRadix);
 		}
 
@@ -116,10 +116,10 @@ public class BaseConverter
 			Menu.clearConsole();
 			RadixSettings.displayWorkingRadix();
 			System.out.println("\nI will convert a positive integer from base-10 to the current working radix.");
-			number = JordysPrompts.promptInt("\nPlease enter the number you'd like to convert", new String[][]{{"1", "n"}}, "Please enter a positive integer");
+			number = ConsolePrompts.promptInt("\nPlease enter the number you'd like to convert", new String[][]{{"1", "n"}}, "Please enter a positive integer");
 
 			System.out.println("\n" + decimalToBase(number, RadixSettings.workingRadix) + "\n");
-			if(!JordysPrompts.promptYesOrNo("Would you like to try again for another number?"))
+			if(!ConsolePrompts.promptYesOrNo("Would you like to try again for another number?"))
 				break;
 		}
 	}
@@ -136,7 +136,7 @@ public class BaseConverter
 			fraction = Fraction32.promptFraction("\nPlease enter the fraction you'd like to convert");
 
 			System.out.println("\n" + fractionToBase(fraction, RadixSettings.workingRadix) + "\n");
-			if(!JordysPrompts.promptYesOrNo("Would you like to try again for another fraction?"))
+			if(!ConsolePrompts.promptYesOrNo("Would you like to try again for another fraction?"))
 				break;
 		}
 	}
@@ -150,7 +150,7 @@ public class BaseConverter
 			Menu.clearConsole();
 			RadixSettings.displayWorkingRadix();
 			System.out.println("\nI will convert the place value representation of a number in the current working radix to a base-10 rational representation.");
-			str = JordysPrompts.promptString("Please enter the place value notation of the number you'd like to convert");
+			str = ConsolePrompts.promptString("Please enter the place value notation of the number you'd like to convert");
 			
 			while(true)
 			{
@@ -161,11 +161,11 @@ public class BaseConverter
 				}
 				catch(IllegalArgumentException e)
 				{
-					str = JordysPrompts.promptString("Invalid Input: failed to parse");
+					str = ConsolePrompts.promptString("Invalid Input: failed to parse");
 				}
 			}
 
-			if(!JordysPrompts.promptYesOrNo("Would you like to try again for another place value notation?"))
+			if(!ConsolePrompts.promptYesOrNo("Would you like to try again for another place value notation?"))
 				break;
 		}
 	}
@@ -179,7 +179,7 @@ public class BaseConverter
 			Menu.clearConsole();
 			RadixSettings.displayWorkingRadix();
 			System.out.println("\nI will convert a number from its place value representation in base-10 to its place value representation in the current working radix.");
-			str = JordysPrompts.promptString("\nPlease enter the place value notation of the number you'd like to convert");
+			str = ConsolePrompts.promptString("\nPlease enter the place value notation of the number you'd like to convert");
 
 			while(true)
 			{
@@ -190,10 +190,10 @@ public class BaseConverter
 				}
 				catch(IllegalArgumentException e)
 				{
-					str =JordysPrompts.promptString("Invalid input: failed to parse");
+					str =ConsolePrompts.promptString("Invalid input: failed to parse");
 				}
 			}
-			if(!JordysPrompts.promptYesOrNo("Would you like to try again for another notation?"))
+			if(!ConsolePrompts.promptYesOrNo("Would you like to try again for another notation?"))
 				break;
 		}
 	}
