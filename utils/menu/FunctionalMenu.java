@@ -6,7 +6,7 @@ selected utility until the user exits the menu.
 **********************************************/
 import utils.menu.Utility;
 import utils.ConsolePrompts;
-import utils.NumberNamerUtil;
+import utils.NumberNamer;
 public class FunctionalMenu extends Menu
 {
 	protected Utility[] utilities;
@@ -38,7 +38,7 @@ public class FunctionalMenu extends Menu
 
 	public FunctionalMenu(Utility[] utils)
 	{
-		super("Hello, this program contains " + NumberNamerUtil.nameNumber(utils.length) + " helpful utilities.");
+		super("Hello, this program contains " + NumberNamer.nameNumber(utils.length) + " helpful utilities.");
 		utilities = utils;
 	}
 
@@ -54,7 +54,7 @@ public class FunctionalMenu extends Menu
 		active = true;
 		while(active)
 		{
-			currentUtility = ConsolePrompts.promptInt(display(), new String[][]{{"0", String.valueOf(utilities.length)}}, "Invalid input");
+			currentUtility = ConsolePrompts.promptInt(display(), "Invalid input", new Number[]{0, utilities.length});
 
 			if(currentUtility != 0)
 			{
