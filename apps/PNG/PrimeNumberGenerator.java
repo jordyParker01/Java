@@ -65,9 +65,12 @@ public class PrimeNumberGenerator
 		while(true)
 		{
 			Menu.clearConsole();
-			int n = ConsolePrompts.promptInt("\nI will generate the first n primes. What shall n be?",
-			new String[][]{{"1", "n"}},
-			"Please enter a value greater than 0 for n.");
+			int n = ConsolePrompts.promptInt
+			(
+				"\nI will generate the first n primes. What shall n be?",
+				"Please enter a value greater than 0 for n.",
+				new Number[]{1, Double.POSITIVE_INFINITY}
+			);
 			ArrayList<Integer> primes = primes(n);
 			int index = 1;
 			System.out.println();
@@ -82,9 +85,12 @@ public class PrimeNumberGenerator
 		while(true)
 		{
 			Menu.clearConsole();
-			int n = ConsolePrompts.promptInt("\nI will generate all the primes up to n. What shall n be?",
-			new String[][]{{"1", "n"}},
-			"Please enter a value greater than 0 for n.");
+			int n = ConsolePrompts.promptInt
+			(
+				"\nI will generate all the primes up to n. What shall n be?",
+				"Please enter a value greater than 0 for n."
+				new Number[]{1, Double.POSITIVE_INFINITY}
+			);
 			ArrayList<Integer> primes = primesUpTo(n);
 			int index = 1;
 			System.out.println();
@@ -99,9 +105,12 @@ public class PrimeNumberGenerator
 		while(true)
 		{
 			Menu.clearConsole();
-			int n = ConsolePrompts.promptInt("\nI will find the prime factors for n. What shall n be?",
-			new String[][]{{"1", "n"}},
-			"Please enter a value greater than 0 for n.");
+			int n = ConsolePrompts.promptInt
+			(
+				"\nI will find the prime factors for n. What shall n be?",
+				"Please enter a value greater than 0 for n."
+				new Number[]{1, Double.POSITIVE_INFINITY}
+			);
 
 			if(settings[0].getCurrentOption() == 0)
 			{
@@ -123,9 +132,12 @@ public class PrimeNumberGenerator
 		while(true)
 		{
 			Menu.clearConsole();
-			int n = ConsolePrompts.promptInt("\nI will find all the factors of n. What shall n be?",
-			new String[][]{{"1", "n"}},
-			"Please enter a value greater than 0 for n.");
+			int n = ConsolePrompts.promptInt
+			(
+				"\nI will find all the factors of n. What shall n be?",
+				"Please enter a value greater than 0 for n."
+				new Number[]{1, Double.POSITIVE_INFINITY}
+			);
 
 			if(settings[1].getCurrentOption() == 0)
 			{
@@ -147,9 +159,12 @@ public class PrimeNumberGenerator
 		while(true)
 		{
 			Menu.clearConsole();
-			int n = ConsolePrompts.promptInt("\nI will check if a given number, n, is prime. What shall n be?",
-			new String[][]{{"1", "n"}},
-			"Please enter a value greater than 0 for n.");
+			int n = ConsolePrompts.promptInt
+			(
+				"\nI will check if a given number, n, is prime. What shall n be?",
+				"Please enter a value greater than 0 for n.",
+				new Number[]{1, Double.POSITIVE_INFINITY}
+			);
 			boolean isPrime = isPrime(n);
 
 			System.out.println();

@@ -1,8 +1,7 @@
-/******************************************************************************
-Contains static methods for requesting data from the console, handling exceptions
-when data is of the incorrect type, and limiting legal numeric types to a certain
-range or set of ranges.
-*******************************************************************************/
+/*************************************************************
+Contains static methods for handling data input and validation
+including exception handling and range restriction
+*************************************************************/
 package utils;
 import java.util.Scanner;
 public class ConsolePrompts
@@ -10,43 +9,8 @@ public class ConsolePrompts
 	static Scanner scanner = new Scanner(System.in);
 
 	/*
-	To be called at the end of a while loop prompting the user
-	if they would like to run the loop's logic again. Returns
-	boolean value to be assigned to the condition of the while
-	loop.
+	To be called at the end of a do while loop. Return value of false should terminate the program.
 	*/
-	public static boolean promptRestart(String prompt)
-	{
-		String response;
-		boolean result;
-		
-		System.out.print(prompt + " (y/n)>> ");
-
-		while(true)
-		{
-			response = scanner.nextLine().trim().toLowerCase();
-
-			if(response.equals("y"))
-			{
-				result = true;
-				System.out.print("\n\n");
-				break;
-			}
-			else if(response.equals("n"))
-			{
-				result = false;
-				System.out.print("\nOK, Goodbye!\n\n");
-				break;
-			}
-			else
-			{
-				System.out.print("Please enter a valid response. (y/n) >> ");
-			}
-		}
-
-		return result;
-	}
-
 	public static boolean promptRestart(String prompt, String exitMessage)
 	{
 		String response;
@@ -77,6 +41,11 @@ public class ConsolePrompts
 		}
 
 		return result;
+	}
+
+	public static boolean promptRestart(String prompt)
+	{
+		return promptRestart(prompt, "OK, Goodbye!");
 	}
 
 	/*
@@ -139,7 +108,7 @@ public class ConsolePrompts
 		return result;
 	}
 
-	public static byte promptByte(String prompt, String[][]ranges, String conditionErrorMessage)
+	public static byte promptByte(String prompt, String conditionErrorMessage, Number[]...ranges)
 	{
 		String response;
 		byte result;
@@ -198,7 +167,7 @@ public class ConsolePrompts
 		return result;
 	}
 
-	public static short promptShort(String prompt, String[][]ranges, String conditionErrorMessage)
+	public static short promptShort(String prompt, String conditionErrorMessage, Number[]...ranges)
 	{
 		String response;
 		short result;
@@ -257,7 +226,7 @@ public class ConsolePrompts
 		return result;
 	}
 
-	public static int promptInt(String prompt, String[][]ranges, String conditionErrorMessage)
+	public static int promptInt(String prompt, String conditionErrorMessage, Number[]...ranges)
 	{
 		String response;
 		int result;
@@ -316,7 +285,7 @@ public class ConsolePrompts
 		return result;
 	}
 
-	public static long promptLong(String prompt, String[][]ranges, String conditionErrorMessage)
+	public static long promptLong(String prompt, String conditionErrorMessage, Number[]...ranges)
 	{
 		String response;
 		long result;
@@ -375,7 +344,7 @@ public class ConsolePrompts
 		return result;
 	}
 
-	public static float promptFloat(String prompt, String[][]ranges, String conditionErrorMessage)
+	public static float promptFloat(String prompt, String conditionErrorMessage, Number[]...ranges)
 	{
 		String response;
 		float result;
@@ -434,7 +403,7 @@ public class ConsolePrompts
 		return result;
 	}
 
-	public static double promptDouble(String prompt, String[][]ranges, String conditionErrorMessage)
+	public static double promptDouble(String prompt, String conditionErrorMessage, Number[]...ranges)
 	{
 		String response;
 		double result;
@@ -547,52 +516,31 @@ public class ConsolePrompts
 	}
 
 	/*
-	Not accessible outside of the JordysPrompts class. Takes a 
-	two-dimensional array as an argument with each row representing
-	a legal range of a given numeric data type. The method returns
-	a boolean value representing whether a given numeric type falls
-	within any of the legal ranges.
-
-	Used on the back end for the overloaded versions of all the numeric
-	prompt methods to verify that a user's input falls within a given
-	legal range or set of ranges.
-
-	The character 'n' is to be used in either the first or second column
-	(never both) to respresent a range that is unbounded in either the
-	negative or positive direction respecitively.
-
-	Classes calling an overloaded numeric prompt method must pass in
-	a correctly formatted array, otherwise a NumberFormatException will be
-	thrown at runtime.
-
-	Example of a correctly formatted array:
-	new String[][]{{"n", ""3.14"}, {"100", "200"}}
-
-	Represents a range between 100 and 200 (inclusive) or less than/equal to 3.14.
-
-	Could possibly be improved with hash maps?
-	Generics?
+	Checks if a given numerical input falls within a set of specified ranges
 	*/
-	private static boolean condition(Number numberInput, String[][] ranges)
+	private static boolean condition(Number numericalInput, Number[]... ranges) throws IllegalArgumentException
 	{
 		boolean result = false;
 		
-		double doubleInput = numberInput.doubleValue();
+		double input = numericalInput.doubleValue();
 		
 		for(int i = 0; i < ranges.length; i++)
 		{
-			if(ranges[i][0].equals("n"))
-			{
-				result |= doubleInput <= Double.parseDouble(ranges[i][1]);
-			}
-			else if(ranges[i][1].equals("n"))
-			{
-				result |= doubleInput >= Double.parseDouble(ranges[i][0]);
-			}
+			//Checks for illegal bounds.
+			if(ranges[i][0].equals(Double.POSITIVE_INFINITY))
+				throw new IllegalArgumentException("Invalid lower bound.");
+			else if(ranges[i][0].equals(Double.NEGATIVE_INFINITY))
+				throw new IllegalArgumentException("Invalid upper bound.");
+			else if(ranges[i][0].doubleValue() > ranges[i][1].doubleValue())
+				throw new IllegalArgumentException("Ranges out of order: lower bound greater than upper bound.");
+
+			//Evaluates condition.
+			else if(ranges[i][0].equals(Double.NEGATIVE_INFINITY))
+				result |= input <= ranges[i][1].doubleValue();
+			else if(ranges[i][1].equals(Double.POSITIVE_INFINITY))
+				result |= input >= ranges[i][0].doubleValue();
 			else
-			{
-				result |= doubleInput >= Double.parseDouble(ranges[i][0]) && doubleInput <= Double.parseDouble(ranges[i][1]);
-			}
+				result |= input >= ranges[i][0].doubleValue() && input <= ranges[i][1].doubleValue();
 		}
 		
 		return result;

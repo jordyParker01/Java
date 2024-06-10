@@ -116,7 +116,7 @@ public class BaseConverter
 			Menu.clearConsole();
 			RadixSettings.displayWorkingRadix();
 			System.out.println("\nI will convert a positive integer from base-10 to the current working radix.");
-			number = ConsolePrompts.promptInt("\nPlease enter the number you'd like to convert", new String[][]{{"1", "n"}}, "Please enter a positive integer");
+			number = ConsolePrompts.promptInt("\nPlease enter the number you'd like to convert", "Please enter a positive integer", new Number[]{1, Double.POSITIVE_INFINITY});
 
 			System.out.println("\n" + decimalToBase(number, RadixSettings.workingRadix) + "\n");
 			if(!ConsolePrompts.promptYesOrNo("Would you like to try again for another number?"))
