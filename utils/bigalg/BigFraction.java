@@ -40,7 +40,7 @@ public class BigFraction implements Comparable<BigFraction>
 	}
 
 	public BigFraction(int n, BigInteger d)
-	{`
+	{
 		setNumerator(n);
 		setDenominator(d);
 		reduce();
@@ -155,6 +155,38 @@ public class BigFraction implements Comparable<BigFraction>
 			n = new BigInteger(values[0].trim());
 			d = new BigInteger(values[1].trim());
 			result = new BigFraction(n, d);
+		}
+
+		return result;
+	}
+
+	public static BigFraction parseDecimal(String input) throws NumberFormatException
+	{
+		BigFraction result = ZERO;
+
+		String[] parts = input.split(".");
+		if(parts.length > 2)
+			throw new NumberFormatException("Invalid number of elements found while parsing decimal");
+		else if(parts.length == 1)
+		{
+			BigInteger n = new BigInteger(parts[0].trim());
+			result = new BigFraction(n);
+		}
+		else
+		{
+			BigInteger n = new BigInteger(parts[0].trim());
+			result = new BigFraction(n);
+			int[] digits = new int[parts[1].length()];
+
+			int valueOfDigit;
+			BigFraction addend;
+			for(int i = 0; i < parts[1].length(); i++)
+			{
+				valueOfDigit = Integer.parseInt(parts[1].charAt(i) + "");
+				addend = new BigFraction(valueOfDigit, (int)Math.pow(10, i + 1));
+				result = add(result, addend);
+			}
+			
 		}
 
 		return result;
