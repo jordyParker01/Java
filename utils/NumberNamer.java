@@ -36,11 +36,13 @@ public class NumberNamer
 		}
 
 		//Breaks number into its composite magnitudes and names them based on the value at each magnitude...
+		int cache;
 		for(int i = numberMagnitude; i >= -1; i--)
 		{
-			if(magnitude(currentNumber) == i)//Procede only if the current magnitude has a nonzero value...
+			cache = magnitudeValue(currentNumber);//Calculate the value of the current magnitude
+			if(magnitude(currentNumber) == i && cache != 0)//Procede only if the current magnitude has a nonzero value...
 			{
-				magValue = magnitudeValue(currentNumber);//Calculate the value of the current magnitude
+				magValue = cache;
 
 				if(i != numberMagnitude)//Add a space for all but the first loop...
 					result += " ";
