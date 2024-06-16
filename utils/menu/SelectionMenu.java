@@ -45,7 +45,7 @@ public class SelectionMenu extends Menu
 	{
 		clearConsole();
 		greet();
-		int result = ConsolePrompts.promptInt(display(), new String[][]{{"0", String.valueOf(options.length)}}, "Invalid input");
+		int result = ConsolePrompts.promptInt(display(), "Invalid input", new Number[]{{0, options.length}});
 		clearConsole();
 		return result;
 	}

@@ -1,7 +1,8 @@
 package utils.bigalg;
 
+import java.util.Arrays;
 import utils.bigalg.*;
-import utils.JordysPrompts;
+import utils.ConsolePrompts;
 import utils.menu.*;
 public class Test
 {
@@ -9,7 +10,8 @@ public class Test
 		new Utility[]
 		{
 			new Utility(Test::testAddition, "Test Addition"),
-			new Utility(Test::testMultiplication, "Test Multiplication")
+			new Utility(Test::testMultiplication, "Test Multiplication"),
+			new Utility(Test::testSort, "Test Sorting")
 		}
 	);
 	
@@ -20,32 +22,41 @@ public class Test
 
 	public static void testAddition()
 	{
-		while(true)
+		do
 		{
 			BigFraction[] fractions = promptFractions();
 			BigFraction sum = BigFraction.addMany(fractions);
 			System.out.print("\n\n" + sum.toString() + "\n\n");
-			if(!JordysPrompts.promptYesOrNo("Try again?"))
-				break;
 		}
+		while(ConsolePrompts.promptYesOrNo("Try again?"));
 	}
 
 	public static void testMultiplication()
 	{
-		while(true)
+		do
 		{
 			BigFraction[] fractions = promptFractions();
 			BigFraction product = BigFraction.multiplyMany(fractions);
 			System.out.print("\n\n" + product.toString() + "\n\n");
-			if(!JordysPrompts.promptYesOrNo("Try Again?"))
-				break;
 		}
+		while(ConsolePrompts.promptYesOrNo("Try again?"));
+	}
+
+	public static void testSort()
+	{
+		do
+		{
+			BigFraction[] fractions = promptFractions();
+			Arrays.sort(fractions);
+			displayFractions(fractions);
+		}
+		while(ConsolePrompts.promptYesOrNo("Try again?"));
 	}
 
 	public static BigFraction[] promptFractions()
 	{
 		BigFraction[] result = null;
-		String[] inputs = JordysPrompts.promptStringArray("\nPlease enter any number of fractions");
+		String[] inputs = ConsolePrompts.promptStringArray("\nPlease enter any number of fractions");
 
 		while(true)
 		{
@@ -66,5 +77,13 @@ public class Test
 		}
 
 		return result;
+	}
+
+	public static void displayFractions(BigFraction[] fractions)
+	{
+		for(int i = 1; i < fractions.length; i++)
+		{
+			System.out.println(i + ": " + fractions[i].toString());
+		}
 	}
 }
