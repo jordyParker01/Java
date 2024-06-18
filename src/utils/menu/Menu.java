@@ -89,6 +89,28 @@ public abstract class Menu
 		String dump = scanner.nextLine();
 	}
 
+	public static <T> String list(T[] items)
+	{
+		String result = "";
+
+		for(int i = 0; i < items.length; i++)
+		{
+			if(i != 0) result += "\n";
+			result += (i + 1) + ": " + items[i].toString();
+		}
+
+		return result;
+	}
+
+	public static <T> String[] names(T[] items)
+	{
+		String[] names = new String[items.length];
+
+		for(int i = 0; i < names.length; i++)
+			names[i]  = items[i].toString();
+		return names;
+	}
+
 	/*
 		INSTANCE METHODS
 	*/

@@ -5,7 +5,7 @@ A FunctionalMenu, when run, executes the currently
 selected utility until the user exits the menu.
 **********************************************/
 import utils.menu.Utility;
-import utils.ConsolePrompts;
+import utils.prompts.ConsolePrompts;
 import utils.NumberNamer;
 public class FunctionalMenu extends Menu
 {
@@ -42,6 +42,11 @@ public class FunctionalMenu extends Menu
 		utilities = utils;
 	}
 
+	public FunctionalMenu()
+	{
+		super("Hello, this program contains a few helpful utilities.");
+	}
+
 	/*
 		INSTANCE METHODS
 	*/
@@ -74,11 +79,8 @@ public class FunctionalMenu extends Menu
 	String display()
 	{
 		String result = getProcede();
-
-		for(int i = 1; i <= utilities.length; i++)
-		{
-			result += "\n" + i + ": " + utilities[i - 1].getDescription();
-		}
+		result += "\n";
+		result += list(utilities);
 		result += "\n0: " + getExit() + "\n\n";
 		return result;
 	}

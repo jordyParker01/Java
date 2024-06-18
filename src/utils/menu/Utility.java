@@ -44,6 +44,16 @@ public class Utility
 	}
 
 	/*
+		OVERRIDDEN METHODS
+	*/
+
+	@Override
+	public String toString()
+	{
+		return description;
+	}
+
+	/*
 		INSTANCE METHODS
 	*/
 	public void execute()

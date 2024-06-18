@@ -2,7 +2,7 @@
 Contains static methods for handling data input and validation
 including exception handling and range restriction
 *************************************************************/
-package utils;
+package utils.prompts;
 import java.util.Scanner;
 public class ConsolePrompts
 {

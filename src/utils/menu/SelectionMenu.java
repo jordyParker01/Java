@@ -4,7 +4,7 @@ package utils.menu;
 A SelectionMenu, when run, does not execute any procedure.
 Rather, it simply returns the index of the selected option to the client method.
 *******************************************************************************/
-import utils.ConsolePrompts;
+import utils.prompts.ConsolePrompts;
 public class SelectionMenu extends Menu
 {
 	private String[] options;
@@ -54,11 +54,7 @@ public class SelectionMenu extends Menu
 	String display()
 	{
 		String result = getProcede();
-
-		for(int i = 1; i <= options.length; i++)
-		{
-			result += "\n" + i + ": " + options[i - 1];
-		}
+		result += list(options);
 		result += "\n0: " + getExit() + "\n\n";
 		return result;
 	}

@@ -1,16 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\apps",
-    "\\apps\\bases",
-    "\\apps\\PNG",
-    "\\horses",
-    "\\sortingAlgorithms",
-    "\\utils",
-    "\\utils\\alg32",
-    "\\utils\\menu",
-    "\\utils\\settings"
+    "\\src",
+    "\\src\\labs",
+    "\\src\\utils",
+    "\\src\\utils\\menu"
   ],
-  "SelectedNode": "\\utils\\ConsolePrompts.java",
+  "SelectedNode": "\\src\\utils\\ConsolePrompts.java",
   "PreviewInSolutionExplorer": false
 }

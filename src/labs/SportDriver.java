@@ -10,12 +10,12 @@ package labs;
 import java.util.ArrayList;
 import java.io.*;
 import labs.*;
-import utils.ConsolePrompts;
+import utils.prompts.ConsolePrompts;
 import utils.menu.*;
 import utils.Serializer;
 public class SportDriver
 {
-	private static ArrayList<Sport> teams= new ArrayList<Sport>();
+	private static ArrayList<Sport> teams = new ArrayList<Sport>();
 	private static Alphabetizer alphabetizer = new Alphabetizer();
 
 	private static String defaultSavePath = "labs\\default_teams.ser";
@@ -46,11 +46,8 @@ public class SportDriver
 	{
 		do
 		{
-			String name = ConsolePrompts.promptString("\nPlease enter the name of the new team");
-			int players = ConsolePrompts.promptInt("\nPlease enter the number of players in the team");
-			int wins = ConsolePrompts.promptInt("\nPlease enter the number of season wins this team has had");
-			int losses = ConsolePrompts.promptInt("\nPlease enter the number of season losses this team has had");
-			Sport team = new Sport(name, players, wins, losses);
+			Sport team = new Sport();
+			team.prompt();
 			teams.add(team);
 			teams.sort(alphabetizer);
 			Serializer.serialize(teams, userSavePath);
@@ -62,12 +59,15 @@ public class SportDriver
 	public static void displayTeamStats(Sport team, boolean pause)
 	{
 		Menu.clearConsole();
+		/*
 		System.out.print("\n\n");
 		System.out.println("Name: " + team.getName());
 		System.out.println("\nPlayers: " + team.getPlayers());
 		System.out.println("Wins: " + team.getWins());
 		System.out.println("Losses: " + team.getLosses());
 		System.out.printf("\nPercentage of Games Won: %.2f%%\n\n", team.calculatePercentWon());
+		*/
+		System.out.print(team.displayState());
 		if(pause) Menu.pause();
 	}
 
@@ -102,11 +102,14 @@ public class SportDriver
 			names
 		);
 		int teamToRemove = teamMenu.run() - 1;
-		Menu.clearConsole();
-		System.out.println("\n\n" + teams.get(teamToRemove) + " has been deleted.\n");
-		Serializer.serialize(teams, userSavePath);
-		teams.remove(teamToRemove);
-		Menu.pause();
+		if(teamToRemove != -1)
+		{
+			Menu.clearConsole();
+			System.out.println("\n\n" + teams.get(teamToRemove) + " has been deleted.\n");
+			Serializer.serialize(teams, userSavePath);
+			teams.remove(teamToRemove);
+			Menu.pause();
+		}
 	}
 
 	/*

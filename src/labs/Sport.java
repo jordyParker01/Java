@@ -8,7 +8,10 @@ Purpose: Sport class definition
 package labs;
 
 import java.io.Serializable;
-public class Sport implements Serializable
+import java.util.Formatter;
+import utils.menu.Creatable;
+import utils.prompts.ConsolePrompts;
+public class Sport implements Serializable, Creatable
 {
 	private String name;
 	private int players;
@@ -89,9 +92,34 @@ public class Sport implements Serializable
 		return wins * 100.0 / (wins + losses);
 	}
 
+	/*
+		OVERRIDDEN METHODS
+	*/
+
 	@Override
 	public String toString()
 	{
 		return name;
+	}
+
+	@Override
+	public void prompt()
+	{
+		name = ConsolePrompts.promptString("\nPlease enter the name of the new team");
+		players = ConsolePrompts.promptInt("\nPlease enter the number of players in the team");
+		wins = ConsolePrompts.promptInt("\nPlease enter the number of season wins this team has had");
+		losses = ConsolePrompts.promptInt("\nPlease enter the number of season losses this team has had");
+	}
+
+	@Override
+	public String displayState()
+	{
+		Formatter formatter = new Formatter();
+		String result = "\n\nName: " + name;
+		result += "\n\nPlayers: " + players;
+		result += "\nWins: " + wins;
+		result += "\nLosses: " + losses;
+		result += formatter.format("\n\nPercentage of Games Won: %.2f%%\n\n", calculatePercentWon());
+		return result;
 	}
 }

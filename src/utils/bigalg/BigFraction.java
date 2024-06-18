@@ -3,7 +3,8 @@ package utils.bigalg;
 import java.math.BigInteger;
 import java.util.Scanner;
 import utils.bigalg.*;
-public class BigFraction implements Comparable<BigFraction>
+import utils.prompts.*;
+public class BigFraction implements Comparable<BigFraction>, Promptable
 {
 	//INSTANCE FIELDS
 	private BigInteger numerator;
@@ -352,8 +353,7 @@ public class BigFraction implements Comparable<BigFraction>
 	}
 
 	/*
-		INSTANCE METHODS
-		STANDARD OVERRIDES
+		OVERRIDDEN METHODS
 	*/
 
 	@Override
@@ -390,6 +390,31 @@ public class BigFraction implements Comparable<BigFraction>
 		else
 			result = String.valueOf(this.numerator);
 		return result;
+	}
+
+	@Override
+	public void parse(String input) throws NumberFormatException
+	{
+		BigInteger n = null;
+		BigInteger d = null;
+
+		String[] values = input.split("/");
+
+		if(values.length > 2)
+			throw new NumberFormatException("Invalid number of elements found while parsing fraction");
+		else if(values.length == 1)
+		{
+			n = new BigInteger(values[0].trim());
+			d = BigInteger.ONE;
+		}
+		else
+		{
+			n = new BigInteger(values[0].trim());
+			d = new BigInteger(values[1].trim());
+		}
+
+		setNumerator(n);
+		setDenominator(d);
 	}
 
 	/*
