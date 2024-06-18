@@ -8,14 +8,19 @@ Purpose: Application File
 package labs;
 
 import java.util.ArrayList;
+import java.io.*;
 import labs.*;
 import utils.ConsolePrompts;
 import utils.menu.*;
+import utils.Serializer;
 public class SportDriver
 {
 	private static ArrayList<Sport> teams= new ArrayList<Sport>();
 	private static Alphabetizer alphabetizer = new Alphabetizer();
-	
+
+	private static String defaultSavePath = "labs\\default_teams.ser";
+	private static String userSavePath = "labs\\user_teams.ser";
+
 	static FunctionalMenu applicationMenu = new FunctionalMenu
 	(
 		new Utility[]
@@ -28,8 +33,9 @@ public class SportDriver
 	
 	public static void main(String[] args)
 	{
-		addDefaults();
+		load();
 		applicationMenu.run();
+		Serializer.serialize(teams, userSavePath);
 	}
 
 	/*
@@ -47,6 +53,7 @@ public class SportDriver
 			Sport team = new Sport(name, players, wins, losses);
 			teams.add(team);
 			teams.sort(alphabetizer);
+			Serializer.serialize(teams, userSavePath);
 			displayTeamStats(team, false);
 		}
 		while(ConsolePrompts.promptYesOrNo("\n\nCreate another team?"));
@@ -97,6 +104,7 @@ public class SportDriver
 		int teamToRemove = teamMenu.run() - 1;
 		Menu.clearConsole();
 		System.out.println("\n\n" + teams.get(teamToRemove) + " has been deleted.\n");
+		Serializer.serialize(teams, userSavePath);
 		teams.remove(teamToRemove);
 		Menu.pause();
 	}
@@ -105,18 +113,29 @@ public class SportDriver
 		PRIVATE METHODS
 	*/
 
-	private static void addDefaults()
+	private static void load()
 	{
-		teams.add(new Sport("Dallas Cowboys", 52, 5, 3));
-		teams.add(new Sport("San Francisco 49ers", 53, 5, 2));
-		teams.add(new Sport("Kansas City Chiefs", 52, 3, 2));
-		teams.add(new Sport("Green Bay Packers", 53, 4, 1));
-		teams.add(new Sport("Tampa Bay Buccaneers", 53, 2, 0));
-		teams.add(new Sport("Miami Dolphins", 52, 2, 3));
-		teams.add(new Sport("New York Giants", 53, 4, 1));
-		teams.add(new Sport("Cincinnati Bengals", 53, 0, 3));
-		teams.add(new Sport("Pittsburgh Steelers", 52, 6, 2));
-		teams.add(new Sport("New England Patriots", 53, 6, 5));
-		teams.sort(alphabetizer);
+		try
+		{
+			teams = Serializer.deserialize(userSavePath);
+		}
+		catch(IOException | ClassNotFoundException e)
+		{
+			Menu.clearConsole();
+			System.out.println("Unable to load saved user data.");
+			e.printStackTrace();
+			Menu.pause();
+			teams.add(new Sport("Dallas Cowboys", 52, 5, 3));
+			teams.add(new Sport("San Francisco 49ers", 53, 5, 2));
+			teams.add(new Sport("Kansas City Chiefs", 52, 3, 2));
+			teams.add(new Sport("Green Bay Packers", 53, 4, 1));
+			teams.add(new Sport("Tampa Bay Buccaneers", 53, 2, 0));
+			teams.add(new Sport("Miami Dolphins", 52, 2, 3));
+			teams.add(new Sport("New York Giants", 53, 4, 1));
+			teams.add(new Sport("Cincinnati Bengals", 53, 0, 3));
+			teams.add(new Sport("Pittsburgh Steelers", 52, 6, 2));
+			teams.add(new Sport("New England Patriots", 53, 6, 5));
+			teams.sort(alphabetizer);
+		}
 	}
 }

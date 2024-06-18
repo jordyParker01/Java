@@ -7,7 +7,8 @@ Purpose: Sport class definition
 *******************************************************************************/
 package labs;
 
-public class Sport
+import java.io.Serializable;
+public class Sport implements Serializable
 {
 	private String name;
 	private int players;
