@@ -19,18 +19,18 @@ public class BigNumberTheory
 		}
 		else
 		{
-			greater = b;
-			lesser = a;
+			greater = b.abs();
+			lesser = a.abs();
 		}
 
-		if(lesser.compareTo(BigInteger.ZERO) == 0) //lesser == 0
+		if(lesser.equals(BigInteger.ZERO)) //lesser == 0
 			result = greater;
 		else
-			while(remainder.compareTo(BigInteger.ZERO) != 0) //remainder != 0
+			while(!remainder.equals(BigInteger.ZERO)) //remainder != 0
 			{
 				remainder = greater.remainder(lesser);
 
-				if(remainder.compareTo(BigInteger.ZERO) == 0) //remainder == 0
+				if(remainder.equals(BigInteger.ZERO)) //remainder == 0
 					result = lesser;
 				else
 				{

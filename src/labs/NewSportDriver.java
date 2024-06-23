@@ -1,13 +1,14 @@
 package labs;
 
 import labs.*;
-import utils.menu.*;
+import utils.creator.*;
 public class NewSportDriver
 {
-	private static CreationMenu<Sport> applicationMenu = new CreationMenu<>(Sport.class);
-	
 	public static void main(String[] args)
 	{
+		CreationMenu<Sport> applicationMenu = new CreationMenu<>(Sport.class, "labs\\sport_saves");
+		applicationMenu.setClassName("team");
+		applicationMenu.setComparator(new Alphabetizer<Sport>());
 		applicationMenu.run();
 	}
 }

@@ -5,14 +5,14 @@ Module: 2
 Lab: 1
 Purpose: Implements Comparator to alphabetize teams by name.
 *******************************************************************************/
-package labs;
+package utils.creator;
 
 import java.util.Comparator;
-public class Alphabetizer implements Comparator<Sport>
+public class Alphabetizer<T> implements Comparator<T>
 {
 	@Override
-	public int compare(Sport team1, Sport team2)
+	public int compare(T obj1, T obj2)
 	{
-		return team1.getName().compareTo(team2.getName());
+		return obj1.toString().compareTo(obj2.toString());
 	}
 }

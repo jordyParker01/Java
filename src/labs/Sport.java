@@ -9,7 +9,7 @@ package labs;
 
 import java.io.Serializable;
 import java.util.Formatter;
-import utils.menu.Creatable;
+import utils.creator.Creatable;
 import utils.prompts.ConsolePrompts;
 public class Sport implements Serializable, Creatable
 {
@@ -101,7 +101,7 @@ public class Sport implements Serializable, Creatable
 	{
 		return name;
 	}
-
+	 
 	@Override
 	public void prompt()
 	{

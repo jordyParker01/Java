@@ -2,6 +2,7 @@ package utils.bigalg;
 
 import java.math.BigInteger;
 import java.util.Scanner;
+import java.util.Objects;
 import utils.bigalg.*;
 import utils.prompts.*;
 public class BigFraction implements Comparable<BigFraction>, Promptable
@@ -109,57 +110,6 @@ public class BigFraction implements Comparable<BigFraction>, Promptable
 	/*
 		CLASS METHODS
 	*/
-
-	public static BigFraction promptFraction(String prompt)
-	{
-		Scanner scanner = new Scanner(System.in);
-		String input;
-		BigFraction result;
-
-		System.out.print(prompt + " >> ");
-
-		while(true)
-		{
-			input = scanner.nextLine().trim();
-
-			try
-			{
-				result = parseFraction(input);
-				break;
-			}
-			catch(NumberFormatException e)
-			{
-				System.out.print("Invalid input >> ");
-			}
-		}
-
-		return result;
-	}
-
-	public static BigFraction parseFraction(String input) throws NumberFormatException
-	{
-		BigInteger n = null;
-		BigInteger d = null;
-
-		String[] values = input.split("/");
-		BigFraction result;
-
-		if(values.length > 2)
-			throw new NumberFormatException("Invalid number of elements found while parsing fraction");
-		else if(values.length == 1)
-		{
-			n = new BigInteger(values[0].trim());
-			result = new BigFraction(n);
-		}
-		else
-		{
-			n = new BigInteger(values[0].trim());
-			d = new BigInteger(values[1].trim());
-			result = new BigFraction(n, d);
-		}
-
-		return result;
-	}
 
 	public static BigFraction parseDecimal(String input) throws NumberFormatException
 	{
@@ -368,17 +318,19 @@ public class BigFraction implements Comparable<BigFraction>, Promptable
 	}
 
 	@Override
-	public boolean equals(Object x)
+	public boolean equals(Object  other)
 	{
-		boolean result = false;
-		if
-		(
-			x.getClass().getName() == "BigFraction" &&
-			this.numerator.equals(((BigFraction)x).numerator) &&
-			this.denominator.equals(((BigFraction)x).denominator)
-		)
-			result = true;
-		return result;
+		if(this == other) return true;
+		if(other == null || getClass() != other.getClass()) return false;
+
+		BigFraction fraction = (BigFraction)other;
+		return numerator.equals(fraction.numerator) && denominator.equals(fraction.denominator);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(numerator, denominator);
 	}
 
 	@Override
@@ -413,8 +365,8 @@ public class BigFraction implements Comparable<BigFraction>, Promptable
 			d = new BigInteger(values[1].trim());
 		}
 
-		setNumerator(n);
-		setDenominator(d);
+		numerator = n;
+		denominator = n;
 	}
 
 	/*
